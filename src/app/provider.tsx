@@ -1,20 +1,19 @@
-'use client';
+'use client'
 
-import type { FC, ReactNode } from 'react';
-import { ThemeProvider } from 'next-themes';
-import { MantineProvider } from '@mantine/core';
+import type { FC, ReactNode } from 'react'
+import { ThemeProvider } from 'next-themes'
+import { MantineProvider } from '@mantine/core'
 
 interface ProvidersProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 const Providers: FC<ProvidersProps> = ({ children }) => (
   <>
-    {/* <ThemeProvider attribute="class">{children}</ThemeProvider> */}
     <ThemeProvider attribute="class">
       <MantineProvider>{children}</MantineProvider>
     </ThemeProvider>
   </>
-);
+)
 
-export default Providers;
+export default Providers
