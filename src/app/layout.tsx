@@ -1,6 +1,8 @@
 import '@mantine/core/styles.css';
+import '@/styles/globals.css';
 import React from 'react';
-import { MantineProvider, ColorSchemeScript } from '@mantine/core';
+import { ColorSchemeScript } from '@mantine/core';
+import Providers from './provider';
 
 export const metadata = {
   title: 'Mantine Next.js template',
@@ -14,8 +16,11 @@ export default function RootLayout({ children }: { children: any }) {
         <ColorSchemeScript />
         <link rel="shortcut icon" href="/favicon.svg" />
       </head>
-      <body>
-        <MantineProvider>{children}</MantineProvider>
+      <body suppressHydrationWarning>
+        <Providers>
+          {/* <MantineProvider>{children}</MantineProvider> */}
+          {children}
+        </Providers>
       </body>
     </html>
   );
