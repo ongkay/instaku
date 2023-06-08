@@ -9,8 +9,12 @@ import {
   getOrderByIdAO,
   newOrderOTP,
 } from '@/src/lib/getAdaOTP'
+import { usePathname, useSearchParams, useRouter } from 'next/navigation'
+import useSetParams from '@/src/hook/useSetParams'
 
 export function Otpnya() {
+  const searchParams: any = useSearchParams()
+  const { urlParams, setParams } = useSetParams()
   const [canceled, setCanceled] = useState(false)
   const [loadingHp, setLoadingHp] = useState(false)
   const [showHp, setShowHp] = useState(false)
@@ -22,7 +26,7 @@ export function Otpnya() {
     otp: '',
     idOrder: '',
   })
-  // Handler Functions
+
   const getNewHpHandler = async () => {
     const res = await newOrderOTP()
     setDataOTP({
@@ -32,6 +36,8 @@ export function Otpnya() {
       otp: res?.sms,
       saldo: res?.last_saldo,
     })
+    setParams('hp', res.number)
+    setParams('idOrder', res?.order_id)
     setLoadingHp(false)
     setRequest(1)
   }
@@ -39,8 +45,19 @@ export function Otpnya() {
   const getOTPHandler = async () => {
     const res = await getOrderByIdAO(dataOTP.idOrder)
     const jsonOTP = res?.sms
+    const id = res?.order_id
 
-    setRequest(request + 1)
+    if (id) {
+      setRequest(request + 1)
+      setDataOTP({
+        ...dataOTP,
+        saldo: res?.last_saldo,
+      })
+    } else {
+      console.log('gagal get OTP handler karena response tidak ada orderidnya')
+      setRequest(0)
+      setCanceled(true)
+    }
 
     if (jsonOTP) {
       const findSmsOtp: any = JSON.stringify(jsonOTP).match(/(\d{3} \d{3})/g)
@@ -53,10 +70,12 @@ export function Otpnya() {
       })
       setRequest(0)
       finishOrderHandler()
+      setParams('otp', otpnya)
 
-      const findSmsOtp2: any = jsonOTP.match(/(\d{3} \d{3})/g)
-      const otpnya2 = findSmsOtp2[0].split(' ').join('')
-      console.log(otpnya2)
+      //// tester aja
+      // const findSmsOtp2: any = jsonOTP.match(/(\d{3} \d{3})/g)
+      // const otpnya2 = findSmsOtp2[0].split(' ').join('')
+      // console.log(otpnya2)
     }
   }
 
@@ -85,6 +104,38 @@ export function Otpnya() {
       }, 10000)
     }
   }, [showHp, request])
+
+  useEffect(() => {
+    const hp = searchParams.get('hp')
+    const otp = searchParams.get('otp')
+    const idOrder = searchParams.get('idOrder')
+
+    if (hp) {
+      setShowHp(true)
+      setLoadingHp(false)
+      setDataOTP({
+        ...dataOTP,
+        hp,
+        idOrder,
+      })
+
+      if (otp) {
+        setCanceled(true)
+        setRequest(0)
+        setResult(otp)
+        setDataOTP({
+          ...dataOTP,
+          otp,
+        })
+      } else {
+        setRequest(2)
+        setCanceled(false)
+      }
+
+      // if (!otp) {
+      // }
+    }
+  }, [])
 
   return (
     <>
