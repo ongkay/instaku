@@ -73,7 +73,6 @@ export function Otpnya() {
   }
 
   useEffect(() => {
-    console.log(request)
     if (!result && request >= 1 && !canceled) {
       setTimeout(() => {
         getOTPHandler()
@@ -143,7 +142,7 @@ export function Otpnya() {
                             className="cursor-pointer"
                             p="md"
                             w={'100%'}
-                            bg={copied ? 'cyan' : 'blue'}
+                            bg={result ? 'cyan' : 'gray'}
                             onClick={() => {
                               if (result) {
                                 copy()
@@ -170,7 +169,7 @@ export function Otpnya() {
                               ) : (
                                 <>
                                   <Text ta={'center'}>Meminta OTP: {request}</Text>
-                                  <Loader color="violet" />
+                                  <Loader color="pink" />
                                 </>
                               )}
                             </div>
