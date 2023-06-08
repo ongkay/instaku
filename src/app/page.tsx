@@ -8,7 +8,7 @@ export default function HomePage() {
   return (
     <>
       <InstaReg />
-      <ColorSchemeToggle />
+      {/* <ColorSchemeToggle /> */}
     </>
   )
 }

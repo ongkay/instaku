@@ -47,11 +47,9 @@ export const newOrderOTP = async () => {
     const endPoint = adaotp.baseUrl + url + adaotp.apiKey + idService
 
     const response = await axios.get(endPoint)
-    console.log(response.data)
 
     if (response.data.success === true) {
       let res = response.data.data.data
-      console.log(res)
       return res
     } else return undefined
   } catch (err) {
@@ -70,11 +68,9 @@ export const getOrderByIdAO = async (id: string) => {
     const endPoint = adaotp.baseUrl + url + adaotp.apiKey + id
 
     const response = await axios.get(endPoint)
-    console.log(response.data)
 
     if (response.data.success === true) {
       let res = response.data.data.data
-      console.log(res)
       return res[0]
     } else return undefined
   } catch (err) {
@@ -115,11 +111,9 @@ export const finishOrderAO = async (id: string) => {
     const endPoint = adaotp.baseUrl + url + adaotp.apiKey + id
 
     const response = await axios.get(endPoint)
-    console.log(response.data)
 
     if (response.data.success === true) {
       let res = response.data.data.data
-      console.log(res)
       return res
     } else return undefined
   } catch (err) {

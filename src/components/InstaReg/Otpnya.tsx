@@ -22,7 +22,7 @@ export function Otpnya() {
     otp: '',
     idOrder: '',
   })
-
+  // Handler Functions
   const getNewHpHandler = async () => {
     const res = await newOrderOTP()
     setDataOTP({
@@ -34,11 +34,9 @@ export function Otpnya() {
     })
     setLoadingHp(false)
     setRequest(1)
-    console.log(res)
   }
 
   const getOTPHandler = async () => {
-    console.log('ngeget OTP now')
     const res = await getOrderByIdAO(dataOTP.idOrder)
     const jsonOTP = res?.sms
 
@@ -47,13 +45,7 @@ export function Otpnya() {
     if (jsonOTP) {
       const findSmsOtp: any = JSON.stringify(jsonOTP).match(/(\d{3} \d{3})/g)
       const otpnya = findSmsOtp[0].split(' ').join('')
-      console.log(otpnya)
       setResult(otpnya)
-
-      const findSmsOtp2: any = jsonOTP.match(/(\d{3} \d{3})/g)
-      const otpnya2 = findSmsOtp2[0].split(' ').join('')
-      console.log(otpnya2)
-
       setDataOTP({
         ...dataOTP,
         otp: otpnya,
@@ -62,22 +54,22 @@ export function Otpnya() {
       setRequest(0)
       finishOrderHandler()
 
-      console.log('OTP sdh di didapat')
+      const findSmsOtp2: any = jsonOTP.match(/(\d{3} \d{3})/g)
+      const otpnya2 = findSmsOtp2[0].split(' ').join('')
+      console.log(otpnya2)
     }
   }
 
   const cancelOrderHandler = async () => {
-    const res = await cancelOrderAO(dataOTP.idOrder)
+    await cancelOrderAO(dataOTP.idOrder)
     setRequest(0)
     setCanceled(true)
-    console.log(res)
   }
 
   const finishOrderHandler = async () => {
-    const res = await finishOrderAO(dataOTP.idOrder)
+    await finishOrderAO(dataOTP.idOrder)
     setCanceled(true)
     setRequest(0)
-    console.log(res)
   }
 
   useEffect(() => {
@@ -151,7 +143,7 @@ export function Otpnya() {
                             className="cursor-pointer"
                             p="md"
                             w={'100%'}
-                            bg={copied ? 'cyan' : 'teal'}
+                            bg={copied ? 'cyan' : 'blue'}
                             onClick={() => {
                               if (result) {
                                 copy()
@@ -171,7 +163,6 @@ export function Otpnya() {
                                       <Text ta={'center'}>kode OTP :</Text>
                                     </>
                                   )}
-
                                   <Title ta={'center'} order={1}>
                                     {result}
                                   </Title>
