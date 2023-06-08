@@ -334,6 +334,14 @@
     "tslib" "^2.5.2"
     "type-fest" "^3.6.1"
 
+"@mantine/form@^6.0.13":
+  "integrity" "sha512-oR/bnnJEd6T42N5pUhXYZ5RaKC4EZozEFW2jHCWDKIAJDjIgGUQrLL/tCjclQ2NwtghaoCTz+9zu32CuXer7TA=="
+  "resolved" "https://registry.npmjs.org/@mantine/form/-/form-6.0.13.tgz"
+  "version" "6.0.13"
+  dependencies:
+    "fast-deep-equal" "^3.1.3"
+    "klona" "^2.0.5"
+
 "@mantine/hooks@7.0.0-alpha.11":
   "integrity" "sha512-khqXpE25L7A4S6q39y+Ky0T416AN5Q35oKqx2goaOwJOXyKq/QjwmQc5xpYMTgiba7wIEZzZO6FTNpovlUWiwg=="
   "resolved" "https://registry.npmjs.org/@mantine/hooks/-/hooks-7.0.0-alpha.11.tgz"
@@ -1656,6 +1664,16 @@
   "resolved" "https://registry.npmjs.org/json5/-/json5-2.2.3.tgz"
   "version" "2.2.3"
 
+"jssha@^3.3.0":
+  "integrity" "sha512-w9OtT4ALL+fbbwG3gw7erAO0jvS5nfvrukGPMWIAoea359B26ALXGpzy4YJSp9yGnpUvuvOw1nSjSoHDfWSr1w=="
+  "resolved" "https://registry.npmjs.org/jssha/-/jssha-3.3.0.tgz"
+  "version" "3.3.0"
+
+"klona@^2.0.5":
+  "integrity" "sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA=="
+  "resolved" "https://registry.npmjs.org/klona/-/klona-2.0.6.tgz"
+  "version" "2.0.6"
+
 "levn@^0.4.1":
   "integrity" "sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ=="
   "resolved" "https://registry.npmjs.org/levn/-/levn-0.4.1.tgz"
@@ -2474,6 +2492,14 @@
   "resolved" "https://registry.npmjs.org/totalist/-/totalist-1.1.0.tgz"
   "version" "1.1.0"
 
+"totp-generator-ts@^1.0.3":
+  "integrity" "sha512-B7XjN2mbV7jvVe3bjU1moxbhCTRoHL4PvL1G0iUsc1N3XuAldPNFRUfk8O3yLdUnBDh4K96f5wZfCCWQMdNS1A=="
+  "resolved" "https://registry.npmjs.org/totp-generator-ts/-/totp-generator-ts-1.0.3.tgz"
+  "version" "1.0.3"
+  dependencies:
+    "jssha" "^3.3.0"
+    "zod" "^3.20.2"
+
 "ts-interface-checker@^0.1.9":
   "integrity" "sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA=="
   "resolved" "https://registry.npmjs.org/ts-interface-checker/-/ts-interface-checker-0.1.13.tgz"
@@ -2675,7 +2701,7 @@
   "resolved" "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz"
   "version" "0.1.0"
 
-"zod@3.21.4":
+"zod@^3.20.2", "zod@3.21.4":
   "integrity" "sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw=="
   "resolved" "https://registry.npmjs.org/zod/-/zod-3.21.4.tgz"
   "version" "3.21.4"

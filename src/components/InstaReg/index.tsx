@@ -2,14 +2,10 @@
 
 import { Button, CopyButton, Stack } from '@mantine/core'
 import { useEffect, useState } from 'react'
-import {
-  Icon2fa,
-  IconMicroscope,
-  IconUserCheck,
-  IconUserCircle,
-} from '@tabler/icons-react'
+import { IconMicroscope, IconUserCheck, IconUserCircle } from '@tabler/icons-react'
 import { getRandomUser } from '@/src/lib/getRandomUser'
 import { Otpnya } from './Otpnya'
+import { Totp } from './Totp'
 
 export function InstaReg() {
   const [loading, setLoading] = useState(true)
@@ -95,6 +91,7 @@ export function InstaReg() {
         </Stack>
       </div>
       <Otpnya />
+      <Totp />
     </>
   )
 }
