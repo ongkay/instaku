@@ -19,9 +19,6 @@ export function InstaReg() {
     bio: '...',
   })
 
-  // console.log(urlParams)
-  // console.log(window.location.href)
-
   const randomKlikHandler = () => {
     if (urlParams.length > 1) router.push('/')
 
@@ -42,7 +39,7 @@ export function InstaReg() {
   return (
     <>
       <div className="px-5 m-5 mx-auto xl:w-1/3">
-        <Stack justify="flex-start">
+        <Stack justify="flex-start" gap={'lg'}>
           <Button variant="default" onClick={randomKlikHandler}>
             Radom data
           </Button>
@@ -102,7 +99,7 @@ export function InstaReg() {
       <Otpnya />
       <Totp />
 
-      <div className="px-5 m-5 mx-auto xl:w-1/3">
+      {/* <div className="px-5 m-5 mx-auto xl:w-1/3">
         <CopyButton value={window.location.href}>
           {({ copied, copy }) => (
             <Button size="md" color={copied ? 'teal' : 'gray'} onClick={copy}>
@@ -110,7 +107,7 @@ export function InstaReg() {
             </Button>
           )}
         </CopyButton>
-      </div>
+      </div> */}
     </>
   )
 }
