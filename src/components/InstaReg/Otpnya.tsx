@@ -139,120 +139,116 @@ export function Otpnya() {
 
   return (
     <>
-      <div className="px-5 m-5 mx-auto xl:w-1/3">
-        <Stack justify="center" align="center">
-          {!showHp ? (
-            <>
+      {!showHp ? (
+        <>
+          <Button
+            fullWidth
+            size="md"
+            justify="space-between"
+            leftSection={<IconPhonePlus size={18} />}
+            rightSection={<span />}
+            onClick={() => {
+              getNewHpHandler()
+              setShowHp(true)
+              setLoadingHp(true)
+            }}
+          >
+            Minta Nomor HP
+          </Button>
+        </>
+      ) : (
+        <>
+          <CopyButton value={dataOTP?.hp}>
+            {({ copied, copy }) => (
               <Button
+                loading={loadingHp}
                 fullWidth
                 size="md"
                 justify="space-between"
                 leftSection={<IconPhonePlus size={18} />}
                 rightSection={<span />}
+                color={copied ? 'teal' : 'cyan'}
                 onClick={() => {
-                  getNewHpHandler()
-                  setShowHp(true)
-                  setLoadingHp(true)
+                  copy()
+                  // console.log('sedang mengkopi')
                 }}
               >
-                Minta Nomor HP
+                {copied ? `Mengkopi nomor hp` : `${dataOTP?.hp}`}
               </Button>
-            </>
-          ) : (
-            <>
-              <CopyButton value={dataOTP?.hp}>
-                {({ copied, copy }) => (
-                  <Button
-                    loading={loadingHp}
-                    fullWidth
-                    size="md"
-                    justify="space-between"
-                    leftSection={<IconPhonePlus size={18} />}
-                    rightSection={<span />}
-                    color={copied ? 'teal' : 'cyan'}
-                    onClick={() => {
-                      copy()
-                      // console.log('sedang mengkopi')
-                    }}
-                  >
-                    {copied ? `Mengkopi nomor hp` : `${dataOTP?.hp}`}
-                  </Button>
-                )}
-              </CopyButton>
+            )}
+          </CopyButton>
 
-              {!loadingHp && (
-                <>
-                  <div className="flex flex-col items-center justify-center w-[70%] gap-2">
-                    <CopyButton value={dataOTP.otp}>
-                      {({ copied, copy }) => (
-                        <>
-                          <Paper
-                            shadow="lg"
-                            radius="md"
-                            withBorder
-                            className="cursor-pointer"
-                            p="md"
-                            w={'100%'}
-                            bg={result ? 'cyan' : 'gray'}
-                            onClick={() => {
-                              if (result) {
-                                copy()
-                                console.log('sedang mengkopi OTP')
-                              }
-                            }}
-                          >
-                            <div className="flex flex-col items-center justify-center w-full gap-1 mb-2">
-                              {result ? (
+          {!loadingHp && (
+            <>
+              <div className="flex flex-col items-center justify-center w-[70%] gap-2">
+                <CopyButton value={dataOTP.otp}>
+                  {({ copied, copy }) => (
+                    <>
+                      <Paper
+                        shadow="lg"
+                        radius="md"
+                        withBorder
+                        className="cursor-pointer"
+                        p="md"
+                        w={'100%'}
+                        bg={result ? 'cyan' : 'gray'}
+                        onClick={() => {
+                          if (result) {
+                            copy()
+                            console.log('sedang mengkopi OTP')
+                          }
+                        }}
+                      >
+                        <div className="flex flex-col items-center justify-center w-full gap-1 mb-2">
+                          {result ? (
+                            <>
+                              {copied ? (
                                 <>
-                                  {copied ? (
-                                    <>
-                                      <Text ta={'center'}>Mengkopi Kode OTP</Text>
-                                    </>
-                                  ) : (
-                                    <>
-                                      <Text ta={'center'}>kode OTP :</Text>
-                                    </>
-                                  )}
-                                  <Title ta={'center'} order={1}>
-                                    {result}
-                                  </Title>
+                                  <Text ta={'center'}>Mengkopi Kode OTP</Text>
                                 </>
                               ) : (
                                 <>
-                                  <Text ta={'center'}>Meminta OTP: {request}</Text>
-                                  <Loader color="pink" />
+                                  <Text ta={'center'}>kode OTP :</Text>
                                 </>
                               )}
-                            </div>
-                          </Paper>
-                        </>
-                      )}
-                    </CopyButton>
-                    {!result && (
-                      <>
-                        <Button
-                          variant="light"
-                          color="red"
-                          fullWidth
-                          onClick={() => {
-                            cancelOrderHandler()
-                            setShowHp(false)
-                          }}
-                        >
-                          Batalkan
-                        </Button>
-                      </>
-                    )}
-                    <Text ta={'center'} size="md">
-                      saldo : Rp. {dataOTP.saldo}
-                    </Text>
-                  </div>
-                </>
-              )}
+                              <Title ta={'center'} order={1}>
+                                {result}
+                              </Title>
+                            </>
+                          ) : (
+                            <>
+                              <Text ta={'center'}>Meminta OTP: {request}</Text>
+                              <Loader color="pink" />
+                            </>
+                          )}
+                        </div>
+                      </Paper>
+                    </>
+                  )}
+                </CopyButton>
+                {!result && (
+                  <>
+                    <Button
+                      variant="light"
+                      color="red"
+                      fullWidth
+                      onClick={() => {
+                        cancelOrderHandler()
+                        setShowHp(false)
+                      }}
+                    >
+                      Batalkan
+                    </Button>
+                  </>
+                )}
+                <Text ta={'center'} size="md">
+                  saldo : Rp. {dataOTP.saldo}
+                </Text>
+              </div>
             </>
           )}
-        </Stack>
-      </div>
+        </>
+      )}
     </>
   )
 }

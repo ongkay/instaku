@@ -38,66 +38,68 @@ export function InstaReg() {
 
   return (
     <>
-      <div className="px-5 m-5 mx-auto xl:w-1/3">
-        <Stack justify="flex-start" gap={'lg'}>
-          <Button variant="default" onClick={randomKlikHandler}>
-            Radom data
-          </Button>
+      <div className="flex flex-col items-center justify-center w-full gap-4 px-5 m-5 mx-auto xl:w-1/3 debuger">
+        <Button variant="default" fullWidth onClick={randomKlikHandler}>
+          Radom data
+        </Button>
 
-          <CopyButton value={dataUser?.fullName}>
-            {({ copied, copy }) => (
-              <Button
-                size="md"
-                justify="space-between"
-                leftSection={<IconUserCircle size={18} />}
-                rightSection={<span />}
-                color={copied ? 'teal' : 'blue'}
-                onClick={() => {
-                  copy()
-                  setParams('fullName', dataUser?.fullName)
-                }}
-              >
-                {copied ? 'mengkopi nama lengkap' : `${dataUser?.fullName}`}
-              </Button>
-            )}
-          </CopyButton>
+        <CopyButton value={dataUser?.fullName}>
+          {({ copied, copy }) => (
+            <Button
+              size="md"
+              fullWidth
+              justify="space-between"
+              leftSection={<IconUserCircle size={18} />}
+              rightSection={<span />}
+              color={copied ? 'teal' : 'blue'}
+              onClick={() => {
+                copy()
+                setParams('fullName', dataUser?.fullName)
+              }}
+            >
+              {copied ? 'mengkopi nama lengkap' : `${dataUser?.fullName}`}
+            </Button>
+          )}
+        </CopyButton>
 
-          <CopyButton value={dataUser.username}>
-            {({ copied, copy }) => (
-              <Button
-                size="md"
-                justify="space-between"
-                leftSection={<IconUserCheck size={18} />}
-                rightSection={<span />}
-                color={copied ? 'teal' : 'blue'}
-                onClick={() => {
-                  copy()
-                  setParams('username', dataUser.username)
-                }}
-              >
-                {copied ? 'mengkopi username' : `${dataUser.username}`}
-              </Button>
-            )}
-          </CopyButton>
+        <CopyButton value={dataUser.username}>
+          {({ copied, copy }) => (
+            <Button
+              size="md"
+              fullWidth
+              justify="space-between"
+              leftSection={<IconUserCheck size={18} />}
+              rightSection={<span />}
+              color={copied ? 'teal' : 'blue'}
+              onClick={() => {
+                copy()
+                setParams('username', dataUser.username)
+              }}
+            >
+              {copied ? 'mengkopi username' : `${dataUser.username}`}
+            </Button>
+          )}
+        </CopyButton>
 
-          <CopyButton value={dataUser.bio}>
-            {({ copied, copy }) => (
-              <Button
-                size="md"
-                justify="space-between"
-                leftSection={<IconMicroscope size={18} />}
-                rightSection={<span />}
-                color={copied ? 'teal' : 'blue'}
-                onClick={copy}
-              >
-                {copied ? 'mengkopi bio' : `${dataUser.bio}`}
-              </Button>
-            )}
-          </CopyButton>
-        </Stack>
+        <CopyButton value={dataUser.bio}>
+          {({ copied, copy }) => (
+            <Button
+              size="md"
+              fullWidth
+              justify="space-between"
+              leftSection={<IconMicroscope size={18} />}
+              rightSection={<span />}
+              color={copied ? 'teal' : 'blue'}
+              onClick={copy}
+            >
+              {copied ? 'mengkopi bio' : `${dataUser.bio}`}
+            </Button>
+          )}
+        </CopyButton>
+
+        <Otpnya />
+        <Totp />
       </div>
-      <Otpnya />
-      <Totp />
 
       {/* <div className="px-5 m-5 mx-auto xl:w-1/3">
         <CopyButton value={window.location.href}>
