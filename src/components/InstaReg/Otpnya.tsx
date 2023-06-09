@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, CopyButton, Loader, Paper, Stack, Text, Title } from '@mantine/core'
+import { Button, CopyButton, Loader, Paper, Text, Title } from '@mantine/core'
 import { useEffect, useState } from 'react'
 import { IconPhonePlus } from '@tabler/icons-react'
 import {
@@ -9,16 +9,16 @@ import {
   getOrderByIdAO,
   newOrderOTP,
 } from '@/src/lib/getAdaOTP'
-import { usePathname, useSearchParams, useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import useSetParams from '@/src/hook/useSetParams'
 
 export function Otpnya() {
   const searchParams: any = useSearchParams()
-  const { urlParams, setParams } = useSetParams()
+  const { setParams } = useSetParams()
   const [canceled, setCanceled] = useState(false)
   const [loadingHp, setLoadingHp] = useState(false)
   const [showHp, setShowHp] = useState(false)
-  const [result, setResult] = useState(null)
+  const [result, setResult] = useState<null | string>(null)
   const [request, setRequest] = useState(0)
   const [dataOTP, setDataOTP] = useState({
     saldo: '',
@@ -57,6 +57,7 @@ export function Otpnya() {
       console.log('gagal get OTP handler karena response tidak ada orderidnya')
       setRequest(0)
       setCanceled(true)
+      setResult('GAGAL')
     }
 
     if (jsonOTP) {
@@ -191,7 +192,7 @@ export function Otpnya() {
                         className="cursor-pointer"
                         p="md"
                         w={'100%'}
-                        bg={result ? 'cyan' : 'gray'}
+                        bg={result && result !== 'GAGAL' ? 'cyan' : 'gray'}
                         onClick={() => {
                           if (result) {
                             copy()

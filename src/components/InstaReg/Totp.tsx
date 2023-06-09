@@ -1,20 +1,15 @@
 'use client'
-import {
-  Button,
-  CopyButton,
-  Input,
-  Loader,
-  Paper,
-  Stack,
-  Text,
-  Title,
-} from '@mantine/core'
-import { useState } from 'react'
+import { Button, CopyButton, Input, Loader, Paper, Text, Title } from '@mantine/core'
+import { useEffect, useState } from 'react'
 import { Icon2fa } from '@tabler/icons-react'
 import { useForm } from '@mantine/form'
 import getTotp from '@/src/lib/TotpGenerator'
+import useSetParams from '@/src/hook/useSetParams'
+import { useSearchParams } from 'next/navigation'
 
 export function Totp() {
+  const searchParams: any = useSearchParams()
+  const { setParams } = useSetParams()
   const [show, setShow] = useState(false)
   const [result, setResult] = useState<string | null>(null)
   const [otpValue, setOtpValue] = useState<string>('')
@@ -23,6 +18,17 @@ export function Totp() {
       token: '',
     },
   })
+
+  useEffect(() => {
+    const token = searchParams.get('token')
+    if (token) {
+      form.setFieldValue('token', token)
+      setShow(true)
+      const getOtp = getTotp(token)
+      setResult(getOtp)
+      setOtpValue(getOtp)
+    }
+  }, [])
 
   return (
     <>
@@ -46,6 +52,7 @@ export function Totp() {
           <form
             onSubmit={form.onSubmit((values) => {
               const getOtp = getTotp(values.token)
+              setParams('token', values.token)
               setResult(getOtp)
               setOtpValue(getOtp)
             })}

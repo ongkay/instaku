@@ -1,13 +1,21 @@
 'use client'
 
-import { Button, CopyButton, Stack } from '@mantine/core'
-import { useCallback, useEffect, useState } from 'react'
-import { IconMicroscope, IconUserCheck, IconUserCircle } from '@tabler/icons-react'
+import { Button, CopyButton } from '@mantine/core'
+import { useEffect, useState } from 'react'
+import {
+  IconArrowsShuffle,
+  IconHome,
+  IconMicroscope,
+  IconUserCheck,
+  IconUserCircle,
+} from '@tabler/icons-react'
 import { getRandomUser } from '@/src/lib/getRandomUser'
 import { Otpnya } from './Otpnya'
 import { Totp } from './Totp'
-import { usePathname, useSearchParams, useRouter } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import useSetParams from '@/src/hook/useSetParams'
+import { IconRefresh } from '@tabler/icons-react'
+import { IconCopy } from '@tabler/icons-react'
 
 export function InstaReg() {
   const router = useRouter()
@@ -38,10 +46,56 @@ export function InstaReg() {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center w-full gap-4 px-5 m-5 mx-auto xl:w-1/3 debuger">
-        <Button variant="default" fullWidth onClick={randomKlikHandler}>
-          Radom data
-        </Button>
+      <div className="flex flex-col items-center justify-center w-full gap-3 px-5 m-5 mx-auto xl:w-1/3">
+        <div className="flex items-center justify-center w-full gap-1">
+          <Button
+            variant="default"
+            size="xs"
+            leftSection={<IconHome size={16} />}
+            fullWidth
+            onClick={() => {
+              router.replace('/')
+              setTimeout(() => {
+                location.reload()
+              }, 300)
+            }}
+          >
+            Home
+          </Button>
+          <Button
+            variant="default"
+            size="xs"
+            leftSection={<IconRefresh size={16} />}
+            fullWidth
+            onClick={() => {
+              location.reload()
+            }}
+          >
+            Reload
+          </Button>
+          <Button
+            variant="default"
+            size="xs"
+            leftSection={<IconArrowsShuffle size={16} />}
+            fullWidth
+            onClick={randomKlikHandler}
+          >
+            Radom data
+          </Button>
+          <CopyButton value={window.location.href || 'link belum siap'}>
+            {({ copied, copy }) => (
+              <Button
+                leftSection={<IconCopy size={16} />}
+                size="xs"
+                fullWidth
+                color={copied ? 'teal' : 'gray'}
+                onClick={copy}
+              >
+                {copied ? 'mengkopi link' : 'copy url'}
+              </Button>
+            )}
+          </CopyButton>
+        </div>
 
         <CopyButton value={dataUser?.fullName}>
           {({ copied, copy }) => (
@@ -100,16 +154,6 @@ export function InstaReg() {
         <Otpnya />
         <Totp />
       </div>
-
-      {/* <div className="px-5 m-5 mx-auto xl:w-1/3">
-        <CopyButton value={window.location.href}>
-          {({ copied, copy }) => (
-            <Button size="md" color={copied ? 'teal' : 'gray'} onClick={copy}>
-              {copied ? 'mengkopi link' : 'copy link url'}
-            </Button>
-          )}
-        </CopyButton>
-      </div> */}
     </>
   )
 }
