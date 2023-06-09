@@ -15,14 +15,18 @@ import {
 import { getRandomUser } from '@/src/lib/getRandomUser'
 import { Otpnya } from './Otpnya'
 import { Totp } from './Totp'
-import { useSearchParams, useRouter } from 'next/navigation'
+import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import useSetParams from '@/src/hook/useSetParams'
 import { IconRefresh } from '@tabler/icons-react'
 import InputCopy from './InputCopy'
 
 export function InstaReg() {
   const router = useRouter()
+  const pathname = usePathname()
   const searchParams: any = useSearchParams()
+  const [myDomain, setMyDomain] = useState('')
+  const [myDomains, setMyDomains] = useState('')
+
   const { urlParams, setParams } = useSetParams()
   const [dataSave, setDataSave] = useState('')
   const [dataUser, setdataUser] = useState({
@@ -31,7 +35,6 @@ export function InstaReg() {
     bio: '',
     password: '',
   })
-  const [myDomain, setMyDomain] = useState('')
 
   const randomKlikHandler = () => {
     if (urlParams.length > 1) router.push('/')
@@ -49,6 +52,10 @@ export function InstaReg() {
     setDataSave(`${username}:${password}:${token}:${hp}`)
   }
 
+  const getUrlHandler = () => {
+    setMyDomain(window.location.href)
+  }
+
   useEffect(() => {
     const getUserData = getRandomUser()
 
@@ -56,14 +63,10 @@ export function InstaReg() {
     const username = searchParams.get('username') || getUserData.username
     const password = searchParams.get('pw') || getUserData.password
 
-    setMyDomain(window.location.host)
-
     fullName
       ? setdataUser({ bio: getUserData.bio, fullName, username, password })
       : setdataUser(getUserData)
   }, [])
-
-  useEffect(() => {}, [urlParams])
 
   return (
     <>
@@ -96,14 +99,17 @@ export function InstaReg() {
           >
             Reload
           </Button>
-          <CopyButton value={myDomain + urlParams}>
+          <CopyButton value={myDomain}>
             {({ copied, copy }) => (
               <Button
                 variant="light"
                 size="xs"
                 leftSection={<IconLink size={18} />}
                 color={copied ? 'teal' : 'red'}
-                onClick={copy}
+                onClick={() => {
+                  getUrlHandler()
+                  copy()
+                }}
               >
                 {copied ? 'mengkopi url' : 'copy URL'}
               </Button>

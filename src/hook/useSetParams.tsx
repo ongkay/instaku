@@ -16,6 +16,7 @@ const useSetParams = () => {
     const set = pathname + '?' + paramsString
     router.push(set)
     setUrlParams(set)
+    // console.log(set)
   }
 
   // useEffect(() => {
