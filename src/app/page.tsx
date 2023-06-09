@@ -7,8 +7,10 @@ import { InstaReg } from '../components/InstaReg'
 export default function HomePage() {
   return (
     <>
-      <InstaReg />
-      <ColorSchemeToggle />
+      <Suspense fallback={null}>
+        <InstaReg />
+        <ColorSchemeToggle />
+      </Suspense>
     </>
   )
 }

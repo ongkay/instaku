@@ -5,8 +5,8 @@ import { ColorSchemeScript } from '@mantine/core'
 import Providers from './provider'
 
 export const metadata = {
-  title: 'Mantine Next.js template',
-  description: 'I am using Mantine with Next.js!',
+  title: 'Insta Tools',
+  description: 'Robot buat daftar aja',
 }
 
 export default function RootLayout({ children }: { children: any }) {
