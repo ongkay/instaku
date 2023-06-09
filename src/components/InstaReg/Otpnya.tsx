@@ -67,8 +67,8 @@ export function Otpnya() {
             saldo: res?.last_saldo,
           })
           setRequest(0)
-          finishOrderHandler()
           setParams('otp', otpnya)
+          finishOrderHandler()
 
           //// tester aja
           // const findSmsOtp2: any = jsonOTP.match(/(\d{3} \d{3})/g)
@@ -97,6 +97,7 @@ export function Otpnya() {
     setCanceled(true)
     setRequest(0)
     setParams('idOrder', '')
+    console.log('orderan OTP telah selesai')
   }
 
   useEffect(() => {
@@ -114,9 +115,9 @@ export function Otpnya() {
   }, [showHp, request])
 
   useEffect(() => {
-    const hp = searchParams.get('hp')
-    const otp = searchParams.get('otp')
     const idOrder = searchParams.get('idOrder')
+    const hp = searchParams.get('hp')
+    const otp = searchParams.get('otp') || ''
 
     if (idOrder) {
       setShowHp(true)
@@ -125,16 +126,13 @@ export function Otpnya() {
         ...dataOTP,
         hp,
         idOrder,
+        otp,
       })
 
       if (otp) {
         setCanceled(true)
         setRequest(0)
         setResult(otp)
-        setDataOTP({
-          ...dataOTP,
-          otp,
-        })
       } else {
         setRequest(2)
         setCanceled(false)
@@ -182,7 +180,6 @@ export function Otpnya() {
                         onClick={() => {
                           if (result) {
                             copy()
-                            console.log('sedang mengkopi OTP')
                           }
                         }}
                       >

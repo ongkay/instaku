@@ -56,8 +56,6 @@ export function InstaReg() {
     const username = searchParams.get('username') || getUserData.username
     const password = searchParams.get('pw') || getUserData.password
 
-    console.log(fullName)
-
     setMyDomain(window.location.host)
 
     fullName
