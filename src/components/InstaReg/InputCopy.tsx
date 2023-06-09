@@ -1,5 +1,5 @@
 import { Button, CopyButton, Input } from '@mantine/core'
-import { IconAt, IconCopy } from '@tabler/icons-react'
+import { IconAt, IconClipboardCheck, IconCopy } from '@tabler/icons-react'
 import { ReactNode, useEffect, useState } from 'react'
 
 interface Props {
@@ -32,7 +32,7 @@ export default function InputCopy({ value, actions, icon, name }: Props) {
                 if (actions) actions()
               }}
             >
-              {copied ? 'Copied' : <IconCopy size={20} />}
+              {copied ? <IconClipboardCheck size={20} /> : <IconCopy size={20} />}
             </Button>
           )}
         </CopyButton>
