@@ -7,37 +7,29 @@ const useSetParams = () => {
   const pathname = usePathname()
   const searchParams: any = useSearchParams()
 
-  // const createQueryString = useCallback(
-  //   (name: string, value: string) => {
-  //     const params = new URLSearchParams(searchParams)
-  //     params.set(name, value)
-
-  //     return params.toString()
-  //   },
-  //   [searchParams]
-  // )
-
-  //   const setParams = (name: string, value: string) => {
-  //   const url = pathname + '?' + createQueryString(name, value)
-  //   router.push(url)
-  //   return url
-  // }
-
   const params = new URLSearchParams(searchParams)
+
   const setParams = (name: string, value: string) => {
     params.set(name, value)
     const paramsString = params.toString()
 
-    const url = pathname + '?' + paramsString
-    router.push(url)
-
-    return url
+    const set = pathname + '?' + paramsString
+    router.push(set)
+    setUrlParams(set)
   }
 
-  useEffect(() => {
-    const fullUrl = pathname + searchParams.toString() // get fullUrl + semua params
-    setUrlParams(fullUrl)
-  }, [setParams])
+  // useEffect(() => {
+  //   // const fullUrl = pathname + searchParams.toString() // get fullUrl + semua params
+  //   // setUrlParams(fullUrl)
+
+  //   const username = searchParams.get('username')
+  //   const password = searchParams.get('pw')
+  //   const token = searchParams.get('token')
+  //   const hp = searchParams.get('hp')
+
+  //   setDataSave(`${username}:${password}:${token}:${hp}`)
+  //   console.log({ dataSave })
+  // }, [urlParams])
 
   return { urlParams, setParams }
 }

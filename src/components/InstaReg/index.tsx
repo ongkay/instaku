@@ -6,13 +6,11 @@ import {
   IconArrowsShuffle,
   IconHome,
   IconMicroscope,
-  IconUserCheck,
-  IconUserCircle,
-  IconCopy,
   IconAt,
   IconUser,
   IconLink,
   IconLock,
+  IconDownload,
 } from '@tabler/icons-react'
 import { getRandomUser } from '@/src/lib/getRandomUser'
 import { Otpnya } from './Otpnya'
@@ -21,12 +19,12 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import useSetParams from '@/src/hook/useSetParams'
 import { IconRefresh } from '@tabler/icons-react'
 import InputCopy from './InputCopy'
-// import { IconCopy } from '@tabler/icons-react'
 
 export function InstaReg() {
   const router = useRouter()
   const searchParams: any = useSearchParams()
   const { urlParams, setParams } = useSetParams()
+  const [dataSave, setDataSave] = useState('')
   const [dataUser, setdataUser] = useState({
     username: '',
     fullName: '',
@@ -40,6 +38,15 @@ export function InstaReg() {
 
     const getUserData = getRandomUser()
     setdataUser(getUserData)
+  }
+
+  const dataSaveHandler = () => {
+    const username = searchParams.get('username')
+    const password = searchParams.get('pw')
+    const token = searchParams.get('token')
+    const hp = searchParams.get('hp')
+
+    setDataSave(`${username}:${password}:${token}:${hp}`)
   }
 
   useEffect(() => {
@@ -58,13 +65,15 @@ export function InstaReg() {
       : setdataUser(getUserData)
   }, [])
 
+  useEffect(() => {}, [urlParams])
+
   return (
     <>
       <div className="flex flex-col items-center justify-center w-full gap-3 px-5 m-5 mx-auto xl:w-1/3">
         <div className="flex items-center justify-center w-full gap-1">
           <Button
             variant="light"
-            color=""
+            color="red"
             size="xs"
             leftSection={<IconHome size={16} />}
             fullWidth
@@ -72,13 +81,14 @@ export function InstaReg() {
               router.replace('/')
               setTimeout(() => {
                 location.reload()
-              }, 600)
+              }, 500)
             }}
           >
             Home
           </Button>
           <Button
             variant="light"
+            color="red"
             size="xs"
             leftSection={<IconRefresh size={16} />}
             fullWidth
@@ -88,17 +98,34 @@ export function InstaReg() {
           >
             Reload
           </Button>
+          <CopyButton value={myDomain + urlParams}>
+            {({ copied, copy }) => (
+              <Button
+                variant="light"
+                size="xs"
+                leftSection={<IconLink size={18} />}
+                color={copied ? 'teal' : 'red'}
+                onClick={copy}
+              >
+                {copied ? 'mengkopi url' : 'copy URL'}
+              </Button>
+            )}
+          </CopyButton>
         </div>
-        <CopyButton value={myDomain + urlParams}>
+
+        <CopyButton value={dataSave}>
           {({ copied, copy }) => (
             <Button
               fullWidth
               variant="light"
-              leftSection={<IconLink size={18} />}
-              color={copied ? 'teal' : 'blue'}
-              onClick={copy}
+              leftSection={<IconDownload size={18} />}
+              color={copied ? 'teal' : 'yellow'}
+              onClick={() => {
+                dataSaveHandler()
+                copy()
+              }}
             >
-              {copied ? 'mengkopi url' : 'copy URL'}
+              {copied ? '2x klik copy!' : 'Get Data'}
             </Button>
           )}
         </CopyButton>
@@ -142,30 +169,14 @@ export function InstaReg() {
           icon={<IconLock size={18} />}
         />
 
-        <InputCopy name="Bio" value={dataUser.bio} icon={<IconMicroscope size={18} />} />
-
-        {/* <>
-          {getLink ? (
-            <InputCopy
-              name="url"
-              value={myDomain + urlParams}
-              icon={<IconLink size={18} />}
-            />
-          ) : (
-            <Button
-              variant="light"
-              size="xs"
-              leftSection={<IconLink size={16} />}
-              fullWidth
-              onClick={() => {
-                setMyDomain(window.location.host)
-                setGetLink(true)
-              }}
-            >
-              Get url
-            </Button>
-          )}
-        </> */}
+        <InputCopy
+          name="Bio"
+          value={dataUser.bio}
+          actions={() => {
+            dataSaveHandler()
+          }}
+          icon={<IconMicroscope size={18} />}
+        />
       </div>
     </>
   )

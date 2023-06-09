@@ -7,9 +7,7 @@ import { InstaReg } from '../components/InstaReg'
 export default function HomePage() {
   return (
     <>
-      <Suspense fallback={null}>
-        <InstaReg />
-      </Suspense>
+      <InstaReg />
       <ColorSchemeToggle />
     </>
   )
