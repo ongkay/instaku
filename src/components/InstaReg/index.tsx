@@ -11,6 +11,7 @@ import {
   IconCopy,
   IconAt,
   IconUser,
+  IconLink,
 } from '@tabler/icons-react'
 import { getRandomUser } from '@/src/lib/getRandomUser'
 import { Otpnya } from './Otpnya'
@@ -30,6 +31,7 @@ export function InstaReg() {
     fullName: '...',
     bio: '...',
   })
+  const [myDomain, setMyDomain] = useState('')
 
   const randomKlikHandler = () => {
     if (urlParams.length > 1) router.push('/')
@@ -42,6 +44,7 @@ export function InstaReg() {
     const fullName = searchParams.get('fullName')
     const username = searchParams.get('username')
     const getUserData = getRandomUser()
+    setMyDomain(window.location.host)
 
     fullName
       ? setdataUser({ bio: getUserData.bio, fullName, username })
@@ -78,22 +81,20 @@ export function InstaReg() {
           >
             Reload
           </Button>
-
-          <CopyButton value="link belum siap">
-            {({ copied, copy }) => (
-              <Button
-                variant="light"
-                leftSection={<IconCopy size={16} />}
-                size="xs"
-                fullWidth
-                color={copied ? 'teal' : 'blue'}
-                onClick={copy}
-              >
-                {copied ? 'mengkopi link' : 'copy url'}
-              </Button>
-            )}
-          </CopyButton>
         </div>
+        <CopyButton value={myDomain + urlParams}>
+          {({ copied, copy }) => (
+            <Button
+              fullWidth
+              variant="light"
+              leftSection={<IconLink size={18} />}
+              color={copied ? 'teal' : 'blue'}
+              onClick={copy}
+            >
+              {copied ? 'mengkopi url' : 'copy URL'}
+            </Button>
+          )}
+        </CopyButton>
 
         <Totp />
         <Otpnya />
@@ -126,6 +127,29 @@ export function InstaReg() {
         />
 
         <InputCopy name="Bio" value={dataUser.bio} icon={<IconMicroscope size={18} />} />
+
+        {/* <>
+          {getLink ? (
+            <InputCopy
+              name="url"
+              value={myDomain + urlParams}
+              icon={<IconLink size={18} />}
+            />
+          ) : (
+            <Button
+              variant="light"
+              size="xs"
+              leftSection={<IconLink size={16} />}
+              fullWidth
+              onClick={() => {
+                setMyDomain(window.location.host)
+                setGetLink(true)
+              }}
+            >
+              Get url
+            </Button>
+          )}
+        </> */}
       </div>
     </>
   )

@@ -26,16 +26,13 @@ export default function InputCopy({ value, actions, icon, name }: Props) {
           {({ copied, copy }) => (
             <Button
               w={'25%'}
-              justify="space-between"
-              leftSection={<IconCopy size={18} />}
-              rightSection={<span />}
               color={copied ? 'teal' : 'blue'}
               onClick={() => {
                 copy()
                 if (actions) actions()
               }}
             >
-              {copied ? 'Copied' : name ? name : 'copy'}
+              {copied ? 'Copied' : <IconCopy size={20} />}
             </Button>
           )}
         </CopyButton>
