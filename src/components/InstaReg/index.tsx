@@ -62,7 +62,7 @@ export function InstaReg() {
               router.replace('/')
               setTimeout(() => {
                 location.reload()
-              }, 300)
+              }, 600)
             }}
           >
             Home
@@ -79,7 +79,7 @@ export function InstaReg() {
             Reload
           </Button>
 
-          <CopyButton value={window.location.href || 'link belum siap'}>
+          <CopyButton value="link belum siap">
             {({ copied, copy }) => (
               <Button
                 variant="light"
