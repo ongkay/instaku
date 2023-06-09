@@ -45,40 +45,42 @@ export function Otpnya() {
   }
 
   const getOTPHandler = async () => {
-    const res = await getOrderByIdAO(dataOTP.idOrder)
-    const jsonOTP = res?.sms
-    const id = res?.order_id
+    if (dataOTP.idOrder) {
+      const res = await getOrderByIdAO(dataOTP.idOrder)
+      const jsonOTP = res?.sms
+      const cekId = res?.order_id
 
-    if (id) {
-      setRequest(request + 1)
-      setDataOTP({
-        ...dataOTP,
-        saldo: res?.last_saldo,
-      })
-    } else {
-      console.log('gagal get OTP handler karena response tidak ada orderidnya')
-      setRequest(0)
-      setCanceled(true)
-      setResult('GAGAL')
-    }
+      if (cekId) {
+        setRequest(request + 1)
+        setDataOTP({
+          ...dataOTP,
+          saldo: res?.last_saldo,
+        })
 
-    if (jsonOTP) {
-      const findSmsOtp: any = JSON.stringify(jsonOTP).match(/(\d{3} \d{3})/g)
-      const otpnya = findSmsOtp[0].split(' ').join('')
-      setResult(otpnya)
-      setDataOTP({
-        ...dataOTP,
-        otp: otpnya,
-        saldo: res?.last_saldo,
-      })
-      setRequest(0)
-      finishOrderHandler()
-      setParams('otp', otpnya)
+        if (jsonOTP) {
+          const findSmsOtp: any = JSON.stringify(jsonOTP).match(/(\d{3} \d{3})/g)
+          const otpnya = findSmsOtp[0].split(' ').join('')
+          setResult(otpnya)
+          setDataOTP({
+            ...dataOTP,
+            otp: otpnya,
+            saldo: res?.last_saldo,
+          })
+          setRequest(0)
+          finishOrderHandler()
+          setParams('otp', otpnya)
 
-      //// tester aja
-      // const findSmsOtp2: any = jsonOTP.match(/(\d{3} \d{3})/g)
-      // const otpnya2 = findSmsOtp2[0].split(' ').join('')
-      // console.log(otpnya2)
+          //// tester aja
+          // const findSmsOtp2: any = jsonOTP.match(/(\d{3} \d{3})/g)
+          // const otpnya2 = findSmsOtp2[0].split(' ').join('')
+          // console.log(otpnya2)
+        }
+      } else {
+        console.log('gagal get OTP handler karena response tidak ada orderidnya')
+        setRequest(0)
+        setCanceled(true)
+        setResult('GAGAL')
+      }
     }
   }
 
@@ -86,12 +88,15 @@ export function Otpnya() {
     await cancelOrderAO(dataOTP.idOrder)
     setRequest(0)
     setCanceled(true)
+    setParams('hp', '')
+    setParams('idOrder', '')
   }
 
   const finishOrderHandler = async () => {
     await finishOrderAO(dataOTP.idOrder)
     setCanceled(true)
     setRequest(0)
+    setParams('idOrder', '')
   }
 
   useEffect(() => {
@@ -113,7 +118,7 @@ export function Otpnya() {
     const otp = searchParams.get('otp')
     const idOrder = searchParams.get('idOrder')
 
-    if (hp) {
+    if (idOrder) {
       setShowHp(true)
       setLoadingHp(false)
       setDataOTP({
@@ -134,9 +139,6 @@ export function Otpnya() {
         setRequest(2)
         setCanceled(false)
       }
-
-      // if (!otp) {
-      // }
     }
   }, [])
 
@@ -154,7 +156,6 @@ export function Otpnya() {
             onClick={() => {
               getNewHpHandler()
               setLoadingHp(true)
-              // setShowHp(true)
             }}
           >
             Minta Nomor HP
