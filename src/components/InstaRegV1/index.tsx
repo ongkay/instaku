@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, CopyButton, Input } from '@mantine/core'
+import { Button, CopyButton } from '@mantine/core'
 import { useEffect, useState } from 'react'
 import {
   IconArrowsShuffle,
@@ -8,9 +8,6 @@ import {
   IconMicroscope,
   IconUserCheck,
   IconUserCircle,
-  IconCopy,
-  IconAt,
-  IconUser,
 } from '@tabler/icons-react'
 import { getRandomUser } from '@/src/lib/getRandomUser'
 import { Otpnya } from './Otpnya'
@@ -18,8 +15,7 @@ import { Totp } from './Totp'
 import { useSearchParams, useRouter } from 'next/navigation'
 import useSetParams from '@/src/hook/useSetParams'
 import { IconRefresh } from '@tabler/icons-react'
-import InputCopy from './InputCopy'
-// import { IconCopy } from '@tabler/icons-react'
+import { IconCopy } from '@tabler/icons-react'
 
 export function InstaReg() {
   const router = useRouter()
@@ -77,7 +73,15 @@ export function InstaReg() {
           >
             Reload
           </Button>
-
+          <Button
+            variant="default"
+            size="xs"
+            leftSection={<IconArrowsShuffle size={16} />}
+            fullWidth
+            onClick={randomKlikHandler}
+          >
+            Radom data
+          </Button>
           <CopyButton value={window.location.href || 'link belum siap'}>
             {({ copied, copy }) => (
               <Button
@@ -92,34 +96,60 @@ export function InstaReg() {
             )}
           </CopyButton>
         </div>
-        <Button
-          variant="filled"
-          color="indigo"
-          size="xs"
-          leftSection={<IconArrowsShuffle size={16} />}
-          fullWidth
-          onClick={randomKlikHandler}
-        >
-          Radom data
-        </Button>
 
-        <InputCopy
-          value={dataUser.fullName}
-          actions={() => {
-            setParams('fullName', dataUser.fullName)
-          }}
-          icon={<IconUser size={18} />}
-        />
+        <CopyButton value={dataUser?.fullName}>
+          {({ copied, copy }) => (
+            <Button
+              size="md"
+              fullWidth
+              justify="space-between"
+              leftSection={<IconUserCircle size={18} />}
+              rightSection={<span />}
+              color={copied ? 'teal' : 'blue'}
+              onClick={() => {
+                copy()
+                setParams('fullName', dataUser?.fullName)
+              }}
+            >
+              {copied ? 'mengkopi nama lengkap' : `${dataUser?.fullName}`}
+            </Button>
+          )}
+        </CopyButton>
 
-        <InputCopy
-          value={dataUser.username}
-          actions={() => {
-            setParams('username', dataUser.username)
-          }}
-          icon={<IconAt size={18} />}
-        />
+        <CopyButton value={dataUser.username}>
+          {({ copied, copy }) => (
+            <Button
+              size="md"
+              fullWidth
+              justify="space-between"
+              leftSection={<IconUserCheck size={18} />}
+              rightSection={<span />}
+              color={copied ? 'teal' : 'blue'}
+              onClick={() => {
+                copy()
+                setParams('username', dataUser.username)
+              }}
+            >
+              {copied ? 'mengkopi username' : `${dataUser.username}`}
+            </Button>
+          )}
+        </CopyButton>
 
-        <InputCopy value={dataUser.bio} icon={<IconMicroscope size={18} />} />
+        <CopyButton value={dataUser.bio}>
+          {({ copied, copy }) => (
+            <Button
+              size="md"
+              fullWidth
+              justify="space-between"
+              leftSection={<IconMicroscope size={18} />}
+              rightSection={<span />}
+              color={copied ? 'teal' : 'blue'}
+              onClick={copy}
+            >
+              {copied ? 'mengkopi bio' : `${dataUser.bio}`}
+            </Button>
+          )}
+        </CopyButton>
 
         <Otpnya />
         <Totp />
