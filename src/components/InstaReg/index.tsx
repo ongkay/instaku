@@ -12,6 +12,7 @@ import {
   IconAt,
   IconUser,
   IconLink,
+  IconLock,
 } from '@tabler/icons-react'
 import { getRandomUser } from '@/src/lib/getRandomUser'
 import { Otpnya } from './Otpnya'
@@ -27,9 +28,10 @@ export function InstaReg() {
   const searchParams: any = useSearchParams()
   const { urlParams, setParams } = useSetParams()
   const [dataUser, setdataUser] = useState({
-    username: '...',
-    fullName: '...',
-    bio: '...',
+    username: '',
+    fullName: '',
+    bio: '',
+    password: '',
   })
   const [myDomain, setMyDomain] = useState('')
 
@@ -41,13 +43,18 @@ export function InstaReg() {
   }
 
   useEffect(() => {
-    const fullName = searchParams.get('fullName')
-    const username = searchParams.get('username')
     const getUserData = getRandomUser()
+
+    const fullName = searchParams.get('fullName') || getUserData.fullName
+    const username = searchParams.get('username') || getUserData.username
+    const password = searchParams.get('pw') || getUserData.password
+
+    console.log(fullName)
+
     setMyDomain(window.location.host)
 
     fullName
-      ? setdataUser({ bio: getUserData.bio, fullName, username })
+      ? setdataUser({ bio: getUserData.bio, fullName, username, password })
       : setdataUser(getUserData)
   }, [])
 
@@ -124,6 +131,15 @@ export function InstaReg() {
             setParams('username', dataUser.username)
           }}
           icon={<IconAt size={18} />}
+        />
+
+        <InputCopy
+          name="Password"
+          value={dataUser.password}
+          actions={() => {
+            setParams('pw', dataUser.password)
+          }}
+          icon={<IconLock size={18} />}
         />
 
         <InputCopy name="Bio" value={dataUser.bio} icon={<IconMicroscope size={18} />} />

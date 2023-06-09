@@ -1,7 +1,7 @@
 'use client'
 import { Button, CopyButton, Input, Loader, Paper, Text, Title } from '@mantine/core'
 import { useEffect, useState } from 'react'
-import { Icon2fa, IconSend } from '@tabler/icons-react'
+import { Icon2fa, IconKey, IconSend } from '@tabler/icons-react'
 import { useForm } from '@mantine/form'
 import getTotp from '@/src/lib/TotpGenerator'
 import useSetParams from '@/src/hook/useSetParams'
@@ -61,7 +61,8 @@ export function Totp() {
             <div className="flex items-center justify-center w-full gap-1">
               <Input
                 required
-                placeholder="Masukkan Token 2fac"
+                leftSection={<IconKey size={18} />}
+                placeholder="Masukkan Token disini..."
                 w={'100%'}
                 {...form.getInputProps('token')}
               />

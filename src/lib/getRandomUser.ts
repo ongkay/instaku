@@ -8,16 +8,52 @@ export function getRandomUser() {
     let idxbio = (Math.random() * bioList.length) | 0
     const bio = bioList[idxbio]
 
+    const password = createPassword(15)
+
     return {
-        firstName,
-        lastName,
+        // firstName,
+        // lastName,
         fullName: firstName + ' ' + lastName,
         username: username.toLowerCase(),
+        password,
         bio
     }
 }
 
+export function createPassword(length: number) {
+    const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
+    return window.crypto
+        .getRandomValues(new Uint8Array(length))
+        .reduce((password, number) => {
+            return password + charset.charAt(number % charset.length)
+        }, '')
+}
+
+function thnlahirnya() {
+    const nilai = ["1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993"];
+    const idx = (Math.random() * nilai.length) | 0;
+    return nilai[idx]
+};
+
+function blnlahirnya() {
+    const nilai = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+    const idx = (Math.random() * nilai.length) | 0;
+    return nilai[idx]
+};
+
+function tgllahirnya() {
+    const nilai = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28"];
+    const idx = (Math.random() * nilai.length) | 0;
+    return nilai[idx];
+};
+
+function nohpnya() {
+    const nilai = ["838", "831", "832", "833", "812", "813", "821", "822", "852", "853", "823", "851", "811", "817", "818", "819", "859", "877", "878", "815", "816", "855", "856", "857", "858", "881", "882", "883", "884", "885", "886", "887", "888", "889"];
+    const idx = (Math.random() * nilai.length) | 0;
+    const norandom = Math.floor(100000000 + Math.random() * 900000000);
+    return nilai[idx] + norandom
+};
 
 const dbNameIndo = [
     'Yeti',

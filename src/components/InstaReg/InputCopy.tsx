@@ -16,7 +16,7 @@ export default function InputCopy({ value, actions, icon, name }: Props) {
     <>
       <div className="flex items-center justify-center w-full gap-1">
         <Input
-          placeholder="Masukkan Token 2fac"
+          placeholder="Loading....."
           onChange={(event) => setValues(event.currentTarget.value)}
           leftSection={icon}
           value={value}
