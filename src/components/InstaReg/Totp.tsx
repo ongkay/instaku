@@ -1,7 +1,7 @@
 'use client'
 import { Button, CopyButton, Input, Loader, Paper, Text, Title } from '@mantine/core'
 import { useEffect, useState } from 'react'
-import { Icon2fa } from '@tabler/icons-react'
+import { Icon2fa, IconSend } from '@tabler/icons-react'
 import { useForm } from '@mantine/form'
 import getTotp from '@/src/lib/TotpGenerator'
 import useSetParams from '@/src/hook/useSetParams'
@@ -35,8 +35,8 @@ export function Totp() {
       {!show ? (
         <>
           <Button
+            color="indigo"
             fullWidth
-            size="md"
             justify="space-between"
             leftSection={<Icon2fa size={18} />}
             rightSection={<span />}
@@ -65,62 +65,61 @@ export function Totp() {
                 w={'100%'}
                 {...form.getInputProps('token')}
               />
-              <Button type="submit" color="teal">
-                kirim
+              <Button type="submit" color="teal" leftSection={<IconSend size={18} />}>
+                Send
               </Button>
             </div>
           </form>
 
-          {result && (
-            <>
-              <div className="flex flex-col items-center justify-center w-[70%] gap-2">
-                <CopyButton value={otpValue}>
-                  {({ copied, copy }) => (
-                    <>
-                      <Paper
-                        shadow="lg"
-                        radius="md"
-                        withBorder
-                        className="cursor-pointer"
-                        p="md"
-                        w={'100%'}
-                        bg={copied ? 'cyan' : 'teal'}
-                        onClick={() => {
-                          if (result) {
-                            copy()
-                            console.log('sedang mengkopi OTP')
-                          }
-                        }}
-                      >
-                        <div className="flex flex-col items-center justify-center w-full gap-1 mb-2">
-                          {result ? (
-                            <>
-                              {copied ? (
-                                <>
-                                  <Text ta={'center'}>Mengkopi Kode OTP 2fuck</Text>
-                                </>
-                              ) : (
-                                <>
-                                  <Text ta={'center'}>2fac OTP :</Text>
-                                </>
-                              )}
-                              <Title ta={'center'} order={1}>
-                                {result}
-                              </Title>
-                            </>
-                          ) : (
-                            <>
-                              <Loader color="pink" />
-                            </>
-                          )}
-                        </div>
-                      </Paper>
-                    </>
-                  )}
-                </CopyButton>
-              </div>
-            </>
-          )}
+          <>
+            <div className="flex flex-col items-center justify-center w-[70%] gap-2">
+              <CopyButton value={otpValue}>
+                {({ copied, copy }) => (
+                  <>
+                    <Paper
+                      shadow="lg"
+                      radius="md"
+                      withBorder
+                      className="cursor-pointer"
+                      p="md"
+                      w={'100%'}
+                      bg={result ? 'cyan' : 'gray'}
+                      onClick={() => {
+                        if (result) {
+                          copy()
+                          console.log('sedang mengkopi OTP')
+                        }
+                      }}
+                    >
+                      <div className="flex flex-col items-center justify-center w-full gap-1 mb-2">
+                        {result ? (
+                          <>
+                            {copied ? (
+                              <>
+                                <Text ta={'center'}>Mengkopi Kode OTP 2fuck</Text>
+                              </>
+                            ) : (
+                              <>
+                                <Text ta={'center'}>2fac OTP :</Text>
+                              </>
+                            )}
+                            <Title ta={'center'} order={1}>
+                              {result}
+                            </Title>
+                          </>
+                        ) : (
+                          <>
+                            <Text ta={'center'}>masukkan kode tokennya</Text>
+                            <Loader color="pink" />
+                          </>
+                        )}
+                      </div>
+                    </Paper>
+                  </>
+                )}
+              </CopyButton>
+            </div>
+          </>
         </>
       )}
     </>

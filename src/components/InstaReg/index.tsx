@@ -53,7 +53,8 @@ export function InstaReg() {
       <div className="flex flex-col items-center justify-center w-full gap-3 px-5 m-5 mx-auto xl:w-1/3">
         <div className="flex items-center justify-center w-full gap-1">
           <Button
-            variant="default"
+            variant="light"
+            color=""
             size="xs"
             leftSection={<IconHome size={16} />}
             fullWidth
@@ -67,7 +68,7 @@ export function InstaReg() {
             Home
           </Button>
           <Button
-            variant="default"
+            variant="light"
             size="xs"
             leftSection={<IconRefresh size={16} />}
             fullWidth
@@ -81,10 +82,11 @@ export function InstaReg() {
           <CopyButton value={window.location.href || 'link belum siap'}>
             {({ copied, copy }) => (
               <Button
+                variant="light"
                 leftSection={<IconCopy size={16} />}
                 size="xs"
                 fullWidth
-                color={copied ? 'teal' : 'gray'}
+                color={copied ? 'teal' : 'blue'}
                 onClick={copy}
               >
                 {copied ? 'mengkopi link' : 'copy url'}
@@ -92,10 +94,12 @@ export function InstaReg() {
             )}
           </CopyButton>
         </div>
+
+        <Totp />
+        <Otpnya />
         <Button
           variant="filled"
-          color="indigo"
-          size="xs"
+          color="grape"
           leftSection={<IconArrowsShuffle size={16} />}
           fullWidth
           onClick={randomKlikHandler}
@@ -104,6 +108,7 @@ export function InstaReg() {
         </Button>
 
         <InputCopy
+          name="Name"
           value={dataUser.fullName}
           actions={() => {
             setParams('fullName', dataUser.fullName)
@@ -112,6 +117,7 @@ export function InstaReg() {
         />
 
         <InputCopy
+          name="User"
           value={dataUser.username}
           actions={() => {
             setParams('username', dataUser.username)
@@ -119,10 +125,7 @@ export function InstaReg() {
           icon={<IconAt size={18} />}
         />
 
-        <InputCopy value={dataUser.bio} icon={<IconMicroscope size={18} />} />
-
-        <Otpnya />
-        <Totp />
+        <InputCopy name="Bio" value={dataUser.bio} icon={<IconMicroscope size={18} />} />
       </div>
     </>
   )

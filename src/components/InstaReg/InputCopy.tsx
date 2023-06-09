@@ -6,12 +6,13 @@ interface Props {
   value: string
   actions?: () => void
   icon?: ReactNode
+  name?: string
 }
 
-export default function InputCopy({ value, actions, icon }: Props) {
+export default function InputCopy({ value, actions, icon, name }: Props) {
   return (
     <>
-      <div className="flex items-center justify-center w-full gap-2">
+      <div className="flex items-center justify-center w-full gap-1">
         <Input
           placeholder="Masukkan Token 2fac"
           leftSection={icon}
@@ -21,6 +22,7 @@ export default function InputCopy({ value, actions, icon }: Props) {
         <CopyButton value={value}>
           {({ copied, copy }) => (
             <Button
+              w={'25%'}
               justify="space-between"
               leftSection={<IconCopy size={18} />}
               rightSection={<span />}
@@ -30,7 +32,7 @@ export default function InputCopy({ value, actions, icon }: Props) {
                 if (actions) actions()
               }}
             >
-              {copied ? 'Copied' : 'copy'}
+              {copied ? 'Copied' : name ? name : 'copy'}
             </Button>
           )}
         </CopyButton>

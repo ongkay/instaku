@@ -11,6 +11,7 @@ import {
 } from '@/src/lib/getAdaOTP'
 import { useSearchParams } from 'next/navigation'
 import useSetParams from '@/src/hook/useSetParams'
+import InputCopy from './InputCopy'
 
 export function Otpnya() {
   const searchParams: any = useSearchParams()
@@ -39,6 +40,7 @@ export function Otpnya() {
     setParams('hp', res.number)
     setParams('idOrder', res?.order_id)
     setLoadingHp(false)
+    setShowHp(true)
     setRequest(1)
   }
 
@@ -144,14 +146,15 @@ export function Otpnya() {
         <>
           <Button
             fullWidth
-            size="md"
+            color="indigo"
+            loading={loadingHp}
             justify="space-between"
             leftSection={<IconPhonePlus size={18} />}
             rightSection={<span />}
             onClick={() => {
               getNewHpHandler()
-              setShowHp(true)
               setLoadingHp(true)
+              // setShowHp(true)
             }}
           >
             Minta Nomor HP
@@ -159,25 +162,7 @@ export function Otpnya() {
         </>
       ) : (
         <>
-          <CopyButton value={dataOTP?.hp}>
-            {({ copied, copy }) => (
-              <Button
-                loading={loadingHp}
-                fullWidth
-                size="md"
-                justify="space-between"
-                leftSection={<IconPhonePlus size={18} />}
-                rightSection={<span />}
-                color={copied ? 'teal' : 'cyan'}
-                onClick={() => {
-                  copy()
-                  // console.log('sedang mengkopi')
-                }}
-              >
-                {copied ? `Mengkopi nomor hp` : `${dataOTP?.hp}`}
-              </Button>
-            )}
-          </CopyButton>
+          <InputCopy name="Hape" value={dataOTP?.hp} icon={<IconPhonePlus size={18} />} />
 
           {!loadingHp && (
             <>
