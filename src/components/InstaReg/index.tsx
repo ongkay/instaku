@@ -19,6 +19,7 @@ import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import useSetParams from '@/src/hook/useSetParams'
 import { IconRefresh } from '@tabler/icons-react'
 import InputCopy from './InputCopy'
+import { Email } from './Email'
 
 export function InstaReg() {
   const router = useRouter()
@@ -136,6 +137,7 @@ export function InstaReg() {
 
         <Totp />
         <Otpnya />
+        <Email />
         <Button
           variant="filled"
           color="grape"
