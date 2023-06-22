@@ -97,10 +97,10 @@ export const getMailku = async (email: string, passmail: string, opsi: "getOTP" 
       })
     })
 
-    await sleep(15000)
+    await sleep(5000)
     console.log("waiting first --> done")
     if (!Result) {
-      await sleep(9000)
+      await sleep(4000)
       console.log("waiting 2nd --> done")
     }
 
