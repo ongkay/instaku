@@ -39,6 +39,7 @@ export function Email() {
     startTransition(async () => {
       console.log('siap runing')
       const datanya = await getEmailAction(dataMail.email, dataMail.password, opsi)
+      console.log(datanya)
       console.log('await done')
 
       if (datanya) {

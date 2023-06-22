@@ -97,7 +97,7 @@ export const getMailku = async (email: string, passmail: string, opsi: "getOTP" 
       })
     })
 
-    await sleep(5000)
+    await sleep(9000)
     console.log("waiting first --> done")
     if (!Result) {
       await sleep(4000)
