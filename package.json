@@ -23,6 +23,7 @@
     "cookies-next": "^2.1.1",
     "imap-simple2": "^5.1.2",
     "imapflow": "^1.0.130",
+    "immer": "^10.0.2",
     "lodash": "^4.17.21",
     "mailparser": "^3.6.4",
     "map-simple": "^0.1.7",
@@ -30,9 +31,12 @@
     "next-themes": "^0.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-tracked": "^1.7.11",
     "react-use-clipboard": "^1.0.9",
+    "simple-zustand-devtools": "^1.1.0",
     "totp-generator-ts": "^1.0.3",
-    "use-copy-clipboard-hook": "^1.1.5"
+    "use-copy-clipboard-hook": "^1.1.5",
+    "zustand": "^4.3.8"
   },
   "devDependencies": {
     "@babel/core": "^7.22.1",

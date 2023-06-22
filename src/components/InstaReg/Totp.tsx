@@ -51,6 +51,7 @@ export function Totp() {
         <>
           <form
             onSubmit={form.onSubmit((values) => {
+              console.log('submit')
               const getOtp = getTotp(values.token)
               setParams('token', values.token)
               setResult(getOtp)
