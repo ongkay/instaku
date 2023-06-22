@@ -37,7 +37,9 @@ export function Email() {
   const actionHandler = async (opsi: 'getOTP' | 'getLinkConfirm' | 'getLinkReset') => {
     setChoice(true)
     startTransition(async () => {
+      console.log('siap runing')
       const datanya = await getEmailAction(dataMail.email, dataMail.password, opsi)
+      console.log('await done')
 
       if (datanya) {
         setResult(datanya)
@@ -128,7 +130,7 @@ export function Email() {
             </>
           ) : (
             <>
-              {!result ? (
+              {pending ? (
                 <>
                   <Loader color="pink" />
                   <Text ta={'center'}>Memeriksa Email Masuk...</Text>
