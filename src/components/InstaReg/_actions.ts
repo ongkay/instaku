@@ -9,7 +9,7 @@ const RegConfirm =
   /(?:https:\/\/instagram\.com\/accounts\/confirm)(?:\([-a-zA-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-a-zA-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-a-zA-Z0-9+&@#\/%=~_|$?!:,.]*\)|[a-zA-Z0-9+&@#\/%=~_|$])/gm
 const RegOTP = /(?<=>)([0-9]{6})/gm
 
-export async function getEmailAction(email: string, passmail: string, opsi: "getOTP" | "getLinkConfirm" | "getLinkReset") {
+export async function getEmailAction(email: string, passmail: string) {
   const dataMail = await getEmailText(
     email,
     passmail,
@@ -19,7 +19,7 @@ export async function getEmailAction(email: string, passmail: string, opsi: "get
     mailFrom: string
   }
 
-  return '123456'
+  return dataMail
 
   // console.log("dataMail")
   // console.log(dataMail)
