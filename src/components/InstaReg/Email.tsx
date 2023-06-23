@@ -20,7 +20,9 @@ import { useSearchParams } from 'next/navigation'
 import InputCopy from './InputCopy'
 import { getEmailAction } from './_actions'
 import { sleep } from '@/src/lib/utils'
-const simpleParser = require('mailparser').simpleParser
+// import parser from 'mailparser'
+// import {simpleParser} from 'mailparser'
+// const simpleParser = require('mailparser').simpleParser
 
 export function Email() {
   let [pending, startTransition] = useTransition()
@@ -38,43 +40,9 @@ export function Email() {
   const actionHandler = async (opsi: 'getOTP' | 'getLinkConfirm' | 'getLinkReset') => {
     setChoice(true)
     startTransition(async () => {
-      const RegReset =
-        /(https:\/\/instagram\.com\/accounts\/password)(\([-a-zA-Z0-9+&@#\/%=~_|$?!:;,.]*\)|[-a-zA-Z0-9+&@#\/%=~_|$?!:;,.])*(\([-a-zA-Z0-9+&@#\/%=~_|$?!:,.]*\)|[a-zA-Z0-9+&@#\/%=~_|$])/gm
-      const RegConfirm =
-        /(?:https:\/\/instagram\.com\/accounts\/confirm)(?:\([-a-zA-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-a-zA-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-a-zA-Z0-9+&@#\/%=~_|$?!:,.]*\)|[a-zA-Z0-9+&@#\/%=~_|$])/gm
-      const RegOTP = /(?<=>)([0-9]{6})/gm
-      let Result: null | string = null
-
       console.log('siap runing')
-      const getDataMail = await getEmailAction(dataMail.email, dataMail.password)
-
-      const mail = await simpleParser(getDataMail.idHeader + getDataMail.body)
-      console.log('masuk parser')
-      console.log(mail.subject)
-      // console.log(mail.from.text)
-      // console.log(mail.html)
-      let resMail = mail.html
-      switch (opsi) {
-        case 'getOTP':
-          // Result = resMail.match(RegOTP)
-          Result = '555444'
-          console.log('Kode OTP = ' + Result)
-          break
-        case 'getLinkConfirm':
-          let res = resMail.match(RegConfirm)
-          Result = res ? res[0] : null
-          console.log('Link konfirmasinya = ' + Result)
-          break
-        case 'getLinkReset':
-          let res2 = resMail.match(RegReset)
-          Result = res2 ? res2[0] : null
-          console.log('Link reset password = ' + Result)
-          break
-        default:
-          console.error('opsi tidak terpilih')
-      }
-
-      console.log({ Result })
+      const Result = await getEmailAction(dataMail.email, dataMail.password, opsi)
+      console.log('getdatamail done')
 
       if (Result) {
         setResult(Result)

@@ -66,15 +66,15 @@ export const getEmailText = async (email: string, passmail: string,) => {
             const id = item.attributes.uid
             const idHeader = 'Imap-Id: ' + id + '\r\n'
             const tgl = item.attributes.date //  new Date('2023-06-18T00:42:24.000Z')
-            // const subj = item.parts[0].body.subject //  [ 'Welcome to your new Outlook.com account' ]
-            // const mailFrom = item.parts[0].body.from //   [ 'Outlook Team <no-reply@microsoft.com>' ]
-
             const header = _.find(item.parts, { which: 'HEADER' })
             const mailSubject = header.body.subject
             const mailFrom = header.body.from
+            const html = (Buffer.from(all.body, 'base64').toString('ascii'));
+
 
             if (mailFrom[0].includes('Team')) {
-              console.log(mailFrom)
+              console.log(Date().toString() + " : --> Email Massage Found")
+              // console.log(mailFrom)
 
               Result = {
                 idHeader,

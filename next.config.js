@@ -7,6 +7,11 @@ module.exports = withBundleAnalyzer({
   experimental: {
     serverActions: true,
   },
+  api: {
+    bodyParser: {
+      sizeLimit: '8mb', // Set desired value here
+    },
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },
