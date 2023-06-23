@@ -47,7 +47,7 @@ export const getMailku = async (email: string, passmail: string, opsi: "getOTP" 
     }
 
 
-    imaps.connect(config).then(function (connection: any) {
+    return imaps.connect(config).then(function (connection: any) {
       console.log('connection')
 
       return connection.openBox('INBOX').then(function () {
@@ -56,11 +56,18 @@ export const getMailku = async (email: string, passmail: string, opsi: "getOTP" 
           bodies: ['HEADER', 'TEXT', ''],
         }
         return connection.search(searchCriteria, fetchOptions).then(function (messages: any) {
+          console.log("messages")
+          console.log(messages)
+
           messages.forEach(function (item: any) {
             const all = _.find(item.parts, { which: '' })
             const id = item.attributes.uid
             const idHeader = 'Imap-Id: ' + id + '\r\n'
+            const tgl = item.attributes.date
+            console.log(tgl) //  new Date('2023-06-18T00:42:24.000Z')
+            // filter berdasarkan tgl 
             simpleParser(idHeader + all.body, (err: any, mail: any) => {
+              console.log("masuk parser")
               if (mail.from.text.includes('Team')) {
                 // if (mail.from.text.includes('Instagram')) {
                 console.log(mail.subject)
@@ -91,20 +98,27 @@ export const getMailku = async (email: string, passmail: string, opsi: "getOTP" 
                 }
               }
               connection.end()
+              return Result
+
             })
+            console.log('selesai pert......................!!!!!!!!!!!!!!!!!!!!!')
+
           })
+
+          console.log('selesai terakhir......................!!!!!!!!!!!!!!!!!!!!!')
+          return Result
         })
       })
     })
 
-    await sleep(9000)
-    console.log("waiting first --> done")
-    if (!Result) {
-      await sleep(4000)
-      console.log("waiting 2nd --> done")
-    }
+    // await sleep(9000)
+    // console.log("waiting first --> done")
+    // if (!Result) {
+    //   await sleep(4000)
+    //   console.log("waiting 2nd --> done")
+    // }
 
-    return Result
+    // return Result
 
 
   }

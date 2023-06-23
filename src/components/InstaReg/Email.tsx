@@ -52,7 +52,7 @@ export function Email() {
   const getNewEmailHandler = async () => {
     startTransition(async () => {
       // const res = await newOrderOTP()
-      await sleep(2000) //  ganti get email dr db
+      await sleep(1000) //  ganti get email dr db
       setShow(true)
       // setParams('email', res.email)
       // setParams('passmail', res?.passmail)
