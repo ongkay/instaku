@@ -19,40 +19,41 @@ export async function getEmailAction(email: string, passmail: string, opsi: "get
     mailFrom: string
   }
 
+  return '123456'
+
   // console.log("dataMail")
   // console.log(dataMail)
 
-  let Result: null | string = null
+  // let Result: null | string = null
+  // const mail = await simpleParser(dataMail.idHeader + dataMail.body)
+  // console.log("masuk parser")
+  // console.log(mail.subject)
+  // console.log(mail.from.text)
+  // // console.log(mail.html)
+  // let resMail = mail.html
+  // switch (opsi) {
+  //   case 'getOTP':
+  //     // Result = resMail.match(RegOTP)
+  //     Result = '456456'
+  //     console.log('Kode OTP = ' + Result)
+  //     return Result
 
-  const mail = await simpleParser(dataMail.idHeader + dataMail.body)
-  console.log("masuk parser")
-  console.log(mail.subject)
-  console.log(mail.from.text)
-  // console.log(mail.html)
-  let resMail = mail.html
-  switch (opsi) {
-    case 'getOTP':
-      // Result = resMail.match(RegOTP)
-      Result = '456456'
-      console.log('Kode OTP = ' + Result)
-      return Result
+  //   case 'getLinkConfirm':
+  //     let res = resMail.match(RegConfirm)
+  //     Result = res ? res[0] : null
+  //     console.log('Link konfirmasinya = ' + Result)
+  //     return Result
 
-    case 'getLinkConfirm':
-      let res = resMail.match(RegConfirm)
-      Result = res ? res[0] : null
-      console.log('Link konfirmasinya = ' + Result)
-      return Result
+  //   case 'getLinkReset':
+  //     let res2 = resMail.match(RegReset)
+  //     Result = res2 ? res2[0] : null
+  //     console.log('Link reset password = ' + Result)
+  //     return Result
 
-    case 'getLinkReset':
-      let res2 = resMail.match(RegReset)
-      Result = res2 ? res2[0] : null
-      console.log('Link reset password = ' + Result)
-      return Result
-
-    default:
-      console.error('opsi tidak terpilih')
-      return Result = null
-  }
+  //   default:
+  //     console.error('opsi tidak terpilih')
+  //     return Result = null
+  // }
 
 
 
