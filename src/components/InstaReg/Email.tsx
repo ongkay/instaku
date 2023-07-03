@@ -1,28 +1,20 @@
 'use client'
-import { Button, CopyButton, Input, Loader, Paper, Text, Title } from '@mantine/core'
+import { Button, CopyButton, Input, Loader, Paper, Text } from '@mantine/core'
 import { useEffect, useState, useTransition } from 'react'
 import {
-  Icon2fa,
   IconArrowsVertical,
+  IconInfoCircle,
   IconKey,
   IconLink,
   IconLockOpen,
   IconMail,
-  IconNumber,
-  IconPhonePlus,
-  IconSend,
-  IconZoomReset,
 } from '@tabler/icons-react'
-import { useForm } from '@mantine/form'
-import getTotp from '@/src/lib/TotpGenerator'
 import useSetParams from '@/src/hook/useSetParams'
 import { useSearchParams } from 'next/navigation'
 import InputCopy from './InputCopy'
 import { getEmailAction } from './_actions'
 import { sleep } from '@/src/lib/utils'
-// import parser from 'mailparser'
-// import {simpleParser} from 'mailparser'
-// const simpleParser = require('mailparser').simpleParser
+import { Alert } from '@mantine/core'
 
 export function Email() {
   let [pending, startTransition] = useTransition()
@@ -40,15 +32,15 @@ export function Email() {
   const actionHandler = async (opsi: 'getOTP' | 'getLinkConfirm' | 'getLinkReset') => {
     setChoice(true)
     startTransition(async () => {
-      console.log('siap runing')
-      const Result = await getEmailAction(dataMail.email, dataMail.password, opsi)
-      console.log('getdatamail done')
+      const data = await getEmailAction(dataMail.email, dataMail.password, opsi)
 
-      if (Result) {
-        setResult(Result)
-        setResValue(Result)
+      console.log({ data })
+
+      if (data) {
+        setResult(data)
+        setResValue(data)
+        setParams('resMail', data)
       }
-      console.log('selesi')
     })
   }
 
@@ -57,22 +49,65 @@ export function Email() {
       // const res = await newOrderOTP()
       await sleep(1000) //  ganti get email dr db
       setShow(true)
-      // setParams('email', res.email)
-      // setParams('passmail', res?.passmail)
+      setParams('email', dataMail?.email)
+      setParams('passmail', dataMail?.password)
       // setDataMail({ email: res.mail, password: res.password })
     })
   }
 
-  // useEffect(() => {
-  //   const email = searchParams.get('email')
-  //   const passmail = searchParams.get('passmail')
-  //   const resMail = searchParams.get('resMail')
-  //   if (email) {
-  //     // setDataMail({ email: res.mail, password: res.password })
-  //     setShow(true)
-  //     resMail ? setResult(resMail) : null
-  //   }
-  // }, [])
+  useEffect(() => {
+    const email = searchParams.get('email')
+    const passmail = searchParams.get('passmail')
+    const resMail = searchParams.get('resMail')
+    if (email) {
+      setDataMail({ email, password: passmail })
+      setShow(true)
+      setChoice(true)
+
+      if (resMail) {
+        setResult(resMail)
+        setResValue(resMail)
+      }
+    }
+  }, [])
+
+  const buttonCHoice = (
+    <div className="flex items-center justify-center w-full gap-1 mb-7">
+      <Button
+        color="yellow"
+        size="xs"
+        leftSection={<IconKey size={16} />}
+        fullWidth
+        onClick={async () => {
+          await actionHandler('getOTP')
+        }}
+      >
+        OTP
+      </Button>
+      <Button
+        color="yellow"
+        size="xs"
+        leftSection={<IconLink size={16} />}
+        fullWidth
+        onClick={async () => {
+          await actionHandler('getLinkConfirm')
+        }}
+      >
+        Link
+      </Button>
+      <Button
+        color="yellow"
+        size="xs"
+        leftSection={<IconLockOpen size={16} />}
+        fullWidth
+        onClick={async () => {
+          await actionHandler('getLinkReset')
+        }}
+      >
+        ResetPW
+      </Button>
+    </div>
+  )
 
   return (
     <>
@@ -95,43 +130,7 @@ export function Email() {
           <InputCopy name="Hape" value={dataMail.email} icon={<IconMail size={18} />} />
 
           {!choice ? (
-            <>
-              <div className="flex items-center justify-center w-full gap-1 mb-7">
-                <Button
-                  color="yellow"
-                  size="xs"
-                  leftSection={<IconKey size={16} />}
-                  fullWidth
-                  onClick={async () => {
-                    await actionHandler('getOTP')
-                  }}
-                >
-                  OTP
-                </Button>
-                <Button
-                  color="yellow"
-                  size="xs"
-                  leftSection={<IconLink size={16} />}
-                  fullWidth
-                  onClick={async () => {
-                    await actionHandler('getLinkConfirm')
-                  }}
-                >
-                  Link
-                </Button>
-                <Button
-                  color="yellow"
-                  size="xs"
-                  leftSection={<IconLockOpen size={16} />}
-                  fullWidth
-                  onClick={async () => {
-                    await actionHandler('getLinkReset')
-                  }}
-                >
-                  ResetPW
-                </Button>
-              </div>
-            </>
+            <>{buttonCHoice}</>
           ) : (
             <>
               {pending ? (
@@ -139,12 +138,25 @@ export function Email() {
                   <Loader color="pink" />
                   <Text ta={'center'}>Memeriksa Email Masuk...</Text>
                 </>
-              ) : (
+              ) : result ? (
                 <InputCopy
                   name="Result"
                   value={resValue}
                   icon={<IconArrowsVertical size={18} />}
                 />
+              ) : (
+                <>
+                  <Alert
+                    variant="light"
+                    color="red"
+                    radius="lg"
+                    title="GAGAL"
+                    icon={<IconInfoCircle />}
+                  >
+                    Silahkan refrest page dan get ulang!!
+                  </Alert>
+                  {buttonCHoice}
+                </>
               )}
             </>
           )}

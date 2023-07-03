@@ -64,16 +64,6 @@ export function InstaReg() {
     const username = searchParams.get('username') || getUserData.username
     const password = searchParams.get('pw') || getUserData.password
 
-    let array = [1, 2, 3, 4, 5]
-    let max = 0
-    array.forEach((element) => {
-      if (element > max) {
-        console.log(element)
-        max = element
-      }
-    })
-    console.log({ max })
-
     fullName
       ? setdataUser({ bio: getUserData.bio, fullName, username, password })
       : setdataUser(getUserData)

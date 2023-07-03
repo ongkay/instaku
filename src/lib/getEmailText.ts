@@ -1,16 +1,6 @@
-import { sleep } from "./utils"
-
-
 // @ts-ignore
 const imaps = require('imap-simple2')
-const simpleParser = require('mailparser').simpleParser
 const _ = require('lodash')
-
-const RegReset =
-  /(https:\/\/instagram\.com\/accounts\/password)(\([-a-zA-Z0-9+&@#\/%=~_|$?!:;,.]*\)|[-a-zA-Z0-9+&@#\/%=~_|$?!:;,.])*(\([-a-zA-Z0-9+&@#\/%=~_|$?!:,.]*\)|[a-zA-Z0-9+&@#\/%=~_|$])/gm
-const RegConfirm =
-  /(?:https:\/\/instagram\.com\/accounts\/confirm)(?:\([-a-zA-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-a-zA-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-a-zA-Z0-9+&@#\/%=~_|$?!:,.]*\)|[a-zA-Z0-9+&@#\/%=~_|$])/gm
-const RegOTP = /(?<=>)([0-9]{6})/gm
 
 export const getEmailText = async (email: string, passmail: string,) => {
   let Result = {
@@ -46,7 +36,7 @@ export const getEmailText = async (email: string, passmail: string,) => {
         host: hostnya,
         port: 993,
         tls: true,
-        authTimeout: 30000,
+        authTimeout: 19000,
       },
     }
 
@@ -55,13 +45,15 @@ export const getEmailText = async (email: string, passmail: string,) => {
       console.log('connection')
 
       return connection.openBox('INBOX').then(function () {
-        const searchCriteria = ['1:5']
+        const searchCriteria = ['1:3']
         const fetchOptions = {
           bodies: ['HEADER', 'TEXT', ''],
         }
+
+        console.log(Date().toString() + " : --> Search Email Massage")
+
         return connection.search(searchCriteria, fetchOptions).then(function (messages: any) {
-          messages.forEach(function (item: any) {
-            // akan foreacth dari yg lama hingga terbaru yg terakhir
+          messages.forEach(function (item: any) { // akan foreacth dari yg lama hingga terbaru yg terakhir
             const all = _.find(item.parts, { which: '' })
             const id = item.attributes.uid
             const idHeader = 'Imap-Id: ' + id + '\r\n'
@@ -70,12 +62,11 @@ export const getEmailText = async (email: string, passmail: string,) => {
             const mailSubject = header.body.subject
             const mailFrom = header.body.from
             const html = (Buffer.from(all.body, 'base64').toString('ascii'));
-
+            console.log(mailSubject)
 
             if (mailFrom[0].includes('Team')) {
               console.log(Date().toString() + " : --> Email Massage Found")
               // console.log(mailFrom)
-
               Result = {
                 idHeader,
                 body: all.body,
@@ -86,6 +77,7 @@ export const getEmailText = async (email: string, passmail: string,) => {
             connection.end()
 
           })
+          connection.end()
 
           return Result
         })
