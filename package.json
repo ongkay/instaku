@@ -22,7 +22,6 @@
     "axios": "^1.4.0",
     "cookies-next": "^2.1.1",
     "imap-simple2": "^5.1.2",
-    "imapflow": "^1.0.130",
     "immer": "^10.0.2",
     "lodash": "^4.17.21",
     "mailparser": "^3.6.4",
