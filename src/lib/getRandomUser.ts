@@ -9,6 +9,7 @@ export function getRandomUser() {
     const bio = bioList[idxbio]
 
     const password = createPassword(15)
+    const lahir = deteklahir()
 
     return {
         // firstName,
@@ -16,9 +17,16 @@ export function getRandomUser() {
         fullName: firstName + ' ' + lastName,
         username: username.toLowerCase(),
         password,
-        bio
+        bio,
+        lahir
     }
 }
+
+function deteklahir() {
+    const nilai = ["satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "lapan", "sembilan", 'sepuluh', 'sebelas', 'duabelas'];
+    const idx = (Math.random() * nilai.length) | 0;
+    return nilai[idx]
+};
 
 export function createPassword(length: number) {
     const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'

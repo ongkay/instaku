@@ -35,6 +35,7 @@ export function InstaReg() {
     fullName: '',
     bio: '',
     password: '',
+    lahir: '',
   })
 
   const randomKlikHandler = () => {
@@ -63,9 +64,10 @@ export function InstaReg() {
     const fullName = searchParams.get('fullName') || getUserData.fullName
     const username = searchParams.get('username') || getUserData.username
     const password = searchParams.get('pw') || getUserData.password
+    const lahir = getUserData.lahir
 
     fullName
-      ? setdataUser({ bio: getUserData.bio, fullName, username, password })
+      ? setdataUser({ bio: getUserData.bio, fullName, username, password, lahir })
       : setdataUser(getUserData)
   }, [])
 
@@ -183,6 +185,10 @@ export function InstaReg() {
           }}
           icon={<IconMicroscope size={18} />}
         />
+
+        <Button fullWidth variant="default">
+          {dataUser.lahir}
+        </Button>
       </div>
     </>
   )
