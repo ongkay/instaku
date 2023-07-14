@@ -28,8 +28,8 @@ export default function InputCopy({ value, actions, icon, name }: Props) {
           {({ copied, copy }) => (
             <Button
               w={'100%'}
-              color={copied ? 'teal' : 'blue'}
               size="xs"
+              color={copied ? 'teal' : 'blue'}
               onClick={() => {
                 copy()
                 if (actions) actions()

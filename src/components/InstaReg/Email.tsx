@@ -15,8 +15,11 @@ import InputCopy from './InputCopy'
 import { getEmailAction } from './_actions'
 import { sleep } from '@/src/lib/utils'
 import { Alert } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
+import { Drawer } from '@mantine/core'
 
 export function Email() {
+  const [opened, { open, close }] = useDisclosure(false)
   let [pending, startTransition] = useTransition()
   const [dataMail, setDataMail] = useState({
     email: 'ongkaysetiawan@outlook.com',
@@ -111,23 +114,20 @@ export function Email() {
 
   return (
     <>
-      {!show ? (
-        <>
-          <Button
-            loading={pending}
-            color="indigo"
-            fullWidth
-            justify="space-between"
-            leftSection={<IconMail size={18} />}
-            rightSection={<span />}
-            onClick={getNewEmailHandler}
-          >
-            Minta Email Fress
-          </Button>
-        </>
-      ) : (
-        <>
-          <InputCopy name="Hape" value={dataMail.email} icon={<IconMail size={18} />} />
+      <Drawer
+        opened={opened}
+        position="bottom"
+        size="xl"
+        onClose={close}
+        title="Alamat email ready"
+        overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
+      >
+        <div className="flex flex-col items-center justify-center w-full gap-3 px-3 pt-4 mx-auto xl:w-1/3">
+          <InputCopy
+            name="Emailnya"
+            value={dataMail.email}
+            icon={<IconMail size={18} />}
+          />
 
           {!choice ? (
             <>{buttonCHoice}</>
@@ -160,8 +160,20 @@ export function Email() {
               )}
             </>
           )}
-        </>
-      )}
+        </div>
+      </Drawer>
+
+      <Button
+        loading={pending}
+        color="indigo"
+        fullWidth
+        justify="space-between"
+        leftSection={<IconMail size={18} />}
+        rightSection={<span />}
+        onClick={open}
+      >
+        Minta Email Fress
+      </Button>
     </>
   )
 }

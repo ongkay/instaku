@@ -89,7 +89,7 @@ export function InstaReg() {
               router.replace('/')
               setTimeout(() => {
                 location.reload()
-              }, 500)
+              }, 1500)
             }}
           >
             Home
@@ -144,55 +144,6 @@ export function InstaReg() {
         <Totp />
         <Otpnya />
         <Email />
-        <Button
-          variant="filled"
-          color="grape"
-          leftSection={<IconArrowsShuffle size={16} />}
-          fullWidth
-          onClick={randomKlikHandler}
-        >
-          Radom data
-        </Button>
-
-        <InputCopy
-          name="Name"
-          value={dataUser.fullName}
-          actions={() => {
-            setParams('fullName', dataUser.fullName)
-          }}
-          icon={<IconUser size={18} />}
-        />
-
-        <InputCopy
-          name="User"
-          value={dataUser.username}
-          actions={() => {
-            setParams('username', dataUser.username)
-          }}
-          icon={<IconAt size={18} />}
-        />
-
-        <InputCopy
-          name="Password"
-          value={dataUser.password}
-          actions={() => {
-            setParams('pw', dataUser.password)
-          }}
-          icon={<IconLock size={18} />}
-        />
-
-        <InputCopy
-          name="Bio"
-          value={dataUser.bio}
-          actions={() => {
-            dataSaveHandler()
-          }}
-          icon={<IconMicroscope size={18} />}
-        />
-
-        <Button fullWidth variant="default">
-          {dataUser.lahir}
-        </Button>
 
         <>
           <Drawer
@@ -200,10 +151,10 @@ export function InstaReg() {
             onClose={close}
             title="Random data disini"
             position="bottom"
-            size="lg"
+            size="xl"
             overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
           >
-            <div className="flex flex-col items-center justify-center w-full gap-1 px-5 m-5 mx-auto xl:w-1/3">
+            <div className="flex flex-col items-center justify-center w-full gap-1 px-3 pt-4 mx-auto xl:w-1/3">
               <Button
                 variant="filled"
                 color="grape"
@@ -215,7 +166,7 @@ export function InstaReg() {
               </Button>
 
               <InputCopy
-                name="Name"
+                name="Full Name"
                 value={dataUser.fullName}
                 actions={() => {
                   setParams('fullName', dataUser.fullName)
@@ -224,7 +175,7 @@ export function InstaReg() {
               />
 
               <InputCopy
-                name="User"
+                name="Username"
                 value={dataUser.username}
                 actions={() => {
                   setParams('username', dataUser.username)
@@ -242,7 +193,7 @@ export function InstaReg() {
               />
 
               <InputCopy
-                name="Bio"
+                name="Bionya"
                 value={dataUser.bio}
                 actions={() => {
                   dataSaveHandler()
@@ -256,7 +207,16 @@ export function InstaReg() {
             </div>
           </Drawer>
 
-          <Button onClick={open}>Open drawer</Button>
+          <Button
+            color="indigo"
+            fullWidth
+            justify="space-between"
+            leftSection={<IconArrowsShuffle size={18} />}
+            rightSection={<span />}
+            onClick={open}
+          >
+            Minta data baru
+          </Button>
         </>
       </div>
     </>
