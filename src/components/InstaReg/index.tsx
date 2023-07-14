@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, CopyButton, Input } from '@mantine/core'
+import { Button, CopyButton, Input, Text } from '@mantine/core'
 import { useEffect, useState } from 'react'
 import {
   IconArrowsShuffle,
@@ -22,6 +22,8 @@ import InputCopy from './InputCopy'
 import { Email } from './Email'
 import { useDisclosure } from '@mantine/hooks'
 import { Drawer } from '@mantine/core'
+import axios from 'axios'
+import { Table } from '@mantine/core'
 
 export function InstaReg() {
   const router = useRouter()
@@ -38,6 +40,15 @@ export function InstaReg() {
     bio: '',
     password: '',
     lahir: '',
+  })
+  const [dataIp, setDataIp] = useState({
+    query: '',
+    isp: '',
+    country: '',
+    city: '',
+    timezone: '',
+    proxy: '',
+    mobile: '',
   })
 
   const [opened, { open, close }] = useDisclosure(false)
@@ -73,6 +84,26 @@ export function InstaReg() {
     fullName
       ? setdataUser({ bio: getUserData.bio, fullName, username, password, lahir })
       : setdataUser(getUserData)
+  }, [])
+
+  useEffect(() => {
+    const getIpKu = async () => {
+      const ip = await axios.get('https://api.ipify.org')
+      const { data } = await axios.get(`http://ip-api.com/json/${ip.data}?fields=221969`)
+
+      setDataIp({
+        city: data.city,
+        country: data.country,
+        isp: data.isp,
+        query: data.query,
+        timezone: data.timezone,
+        proxy: data.proxy,
+        mobile: data.mobile,
+      })
+
+      return data
+    }
+    getIpKu()
   }, [])
 
   return (
@@ -140,10 +171,6 @@ export function InstaReg() {
             </Button>
           )}
         </CopyButton>
-
-        <Totp />
-        <Otpnya />
-        <Email />
 
         <>
           <Drawer
@@ -218,6 +245,40 @@ export function InstaReg() {
             Minta data baru
           </Button>
         </>
+
+        <Totp />
+        <Otpnya />
+        <Email />
+
+        <Table striped withTableBorder withRowBorders={false}>
+          <Table.Tbody>
+            <Table.Tr>
+              <Table.Td>IP Address</Table.Td>
+              <Table.Td>{dataIp.query}</Table.Td>
+            </Table.Tr>
+            <Table.Tr>
+              <Table.Td>ISP</Table.Td>
+              <Table.Td>{dataIp.isp}</Table.Td>
+            </Table.Tr>
+            <Table.Tr>
+              <Table.Td>City</Table.Td>
+              <Table.Td>{dataIp.city}</Table.Td>
+            </Table.Tr>
+            <Table.Tr>
+              <Table.Td>Country</Table.Td>
+              <Table.Td>{dataIp.country}</Table.Td>
+            </Table.Tr>
+            <Table.Tr>
+              <Table.Td>Timezone</Table.Td>
+              <Table.Td>{dataIp.timezone}</Table.Td>
+            </Table.Tr>
+          </Table.Tbody>
+        </Table>
+
+        <div className="flex ">
+          <p> ISP : </p>
+          <p>{dataIp.isp}</p>
+        </div>
       </div>
     </>
   )

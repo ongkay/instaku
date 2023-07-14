@@ -29,6 +29,12 @@ type NewOrderAO = {
     aplikasi_name: string,
 }
 
+type IpApi = {
+    city: string,
+    country: string,
+    isp: string,
+    query: string,
+}
 const data = {
     order_id: '5494377',
     aplikasi_id: '210',
