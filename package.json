@@ -13,9 +13,9 @@
     "prettier:write": "prettier --write \"**/*.{ts,tsx}\""
   },
   "dependencies": {
-    "@mantine/core": "7.0.0-alpha.11",
+    "@mantine/core": "7.0.0-alpha.17",
     "@mantine/form": "^6.0.13",
-    "@mantine/hooks": "7.0.0-alpha.11",
+    "@mantine/hooks": "7.0.0-alpha.17",
     "@next/bundle-analyzer": "^13.4.4",
     "@tabler/icons-react": "^2.20.0",
     "@uiw/react-copy-to-clipboard": "^4.21.28",

@@ -20,6 +20,7 @@ import useSetParams from '@/src/hook/useSetParams'
 import { IconRefresh } from '@tabler/icons-react'
 import InputCopy from './InputCopy'
 import { Email } from './Email'
+import { RandomData } from './RandomData'
 import { useDisclosure } from '@mantine/hooks'
 import { Drawer } from '@mantine/core'
 
@@ -144,6 +145,7 @@ export function InstaReg() {
         <Totp />
         <Otpnya />
         <Email />
+        <RandomData />
         <Button
           variant="filled"
           color="grape"
@@ -198,12 +200,12 @@ export function InstaReg() {
           <Drawer
             opened={opened}
             onClose={close}
-            title="Random data disini"
+            title="Authentication"
             position="bottom"
-            size="lg"
+            size="xl"
             overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
           >
-            <div className="flex flex-col items-center justify-center w-full gap-1 px-5 m-5 mx-auto xl:w-1/3">
+            <div className="flex flex-col items-center justify-center w-full gap-3 px-5 m-5 mx-auto xl:w-1/3">
               <Button
                 variant="filled"
                 color="grape"

@@ -14,25 +14,37 @@ export default function InputCopy({ value, actions, icon, name }: Props) {
 
   return (
     <>
-      <div className="flex items-center justify-center w-full gap-1">
-        <Input
-          placeholder="Loading....."
-          onChange={(event) => setValues(event.currentTarget.value)}
-          leftSection={icon}
-          value={value}
-          w={'100%'}
-        />
+      <div className="flex flex-col items-center justify-center w-full gap-1">
+        <Input.Wrapper label={name} w={'100%'}>
+          <Input
+            placeholder="Loading....."
+            onChange={(event) => setValues(event.currentTarget.value)}
+            leftSection={icon}
+            value={value}
+          />
+        </Input.Wrapper>
+
         <CopyButton value={value}>
           {({ copied, copy }) => (
             <Button
-              w={'25%'}
+              w={'100%'}
               color={copied ? 'teal' : 'blue'}
+              size="xs"
               onClick={() => {
                 copy()
                 if (actions) actions()
               }}
             >
-              {copied ? <IconClipboardCheck size={20} /> : <IconCopy size={20} />}
+              {copied ? (
+                <>
+                  <IconClipboardCheck size={15} /> Copied {name}
+                </>
+              ) : (
+                <>
+                  <IconCopy size={15} />
+                  Copy {name}
+                </>
+              )}
             </Button>
           )}
         </CopyButton>
