@@ -195,36 +195,27 @@ export function InstaReg() {
               <InputCopy
                 name="Full Name"
                 value={dataUser.fullName}
-                actions={() => {
-                  setParams('fullName', dataUser.fullName)
-                }}
+                params="fullname"
                 icon={<IconUser size={18} />}
               />
 
               <InputCopy
                 name="Username"
                 value={dataUser.username}
-                actions={() => {
-                  setParams('username', dataUser.username)
-                }}
+                params="username"
                 icon={<IconAt size={18} />}
               />
 
               <InputCopy
                 name="Password"
                 value={dataUser.password}
-                actions={() => {
-                  setParams('pw', dataUser.password)
-                }}
+                params="pw"
                 icon={<IconLock size={18} />}
               />
 
               <InputCopy
                 name="Bionya"
                 value={dataUser.bio}
-                actions={() => {
-                  dataSaveHandler()
-                }}
                 icon={<IconMicroscope size={18} />}
               />
 
